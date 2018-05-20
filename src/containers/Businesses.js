@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux'
+import { connect } from 'react-redux';
 
 export class Businesses extends Component {
   render() {
@@ -13,19 +13,12 @@ export class Businesses extends Component {
   }
 }
 
-function mapStateToProps (state) {
-  return {
-    
-  }
-}
+const mapStateToProps = state => {
+  return {};
+};
 
-function mapDispatchToProps (dispatch) {
-  return {
+const mapDispatchToProps = dispatch => {
+  return {};
+};
 
-  }
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Businesses)
+export default connect(mapStateToProps, mapDispatchToProps)(Businesses);

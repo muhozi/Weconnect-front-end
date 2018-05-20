@@ -1,4 +1,6 @@
 # WeConnect
+[![Coverage Status](https://coveralls.io/repos/github/muhozi/Weconnect-front-end/badge.svg?branch=ch-set-up-testing-2153263)](https://coveralls.io/github/muhozi/Weconnect-front-end?branch=ch-set-up-testing-2153263) 
+[![Build Status](https://www.travis-ci.org/muhozi/Weconnect-front-end.svg?branch=master)](https://www.travis-ci.org/muhozi/Weconnect-front-end)
 
 WeConnect provides a platform that brings businesses and individuals together. This platform creates awareness for businesses and gives the users the ability to write reviews about the businesses they have interacted with.
 

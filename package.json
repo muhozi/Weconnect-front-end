@@ -24,12 +24,17 @@
     "test": "react-scripts test --env=jsdom --coverage",
     "test:ci": "react-scripts test --env=jsdom --coverage --testResultsProcessor",
     "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "./node_modules/eslint/bin/eslint.js .",
+    "format": "prettier --trailing-comma es5 --single-quote --write 'src/*/*.js' 'src/*/!(node_modules)/**/*.js'"
   },
   "devDependencies": {
+    "babel-eslint": "^8.2.3",
     "chai": "^4.1.2",
     "coveralls": "^3.0.1",
     "enzyme": "^3.3.0",
-    "enzyme-adapter-react-16": "^1.1.1"
+    "enzyme-adapter-react-16": "^1.1.1",
+    "eslint": "^4.19.1",
+    "eslint-plugin-react": "^7.8.2"
   }
 }

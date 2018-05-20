@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Provider } from 'react-redux'
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import ConfigureStore from './config/ConfigureStore'
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import ConfigureStore from './config/ConfigureStore';
 import Header from './components/Header';
 import Home from './containers/Home';
 import Businesses from './containers/Businesses';
@@ -17,7 +17,7 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <div>
-            <Header/>
+            <Header />
             <Route exact path="/" component={Home} />
             <Route path="/reviews" component={Reviews} />
             <Route path="/businesses" component={Businesses} />
@@ -29,5 +29,4 @@ class App extends Component {
     );
   }
 }
-
 export default App;
