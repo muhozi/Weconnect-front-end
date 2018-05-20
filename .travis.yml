@@ -12,7 +12,7 @@ script:
   - yarn test:ci
   # Report coverage
   - yarn coveralls
-   # Run production build
-  - yarn build
-   # Linting command. Fail if there is something wrong with linting
+  # Linting command. Fail if there is something wrong with linting
   - yarn lint
+  # Run production build
+  - yarn build
