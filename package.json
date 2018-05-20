@@ -22,7 +22,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom --coverage",
-    "test:ci": "react-scripts test --env=jsdom --coverage --testResultsProcessor ./node_modules/jest-junit",
+    "test:ci": "react-scripts test --env=jsdom --coverage --testResultsProcessor",
     "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls",
     "eject": "react-scripts eject"
   },
@@ -30,7 +30,6 @@
     "chai": "^4.1.2",
     "coveralls": "^3.0.1",
     "enzyme": "^3.3.0",
-    "enzyme-adapter-react-16": "^1.1.1",
-    "jest-junit": "^4.0.0"
+    "enzyme-adapter-react-16": "^1.1.1"
   }
 }
