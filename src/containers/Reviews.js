@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 
-class Reviews extends Component {
+export class Reviews extends Component {
   render() {
     return (
       <div className="App">

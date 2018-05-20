@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import uuid from 'uuid/v4';
 import {Helmet} from 'react-helmet';
 
-class Register extends Component {
+export class Register extends Component {
   render() {
     return (
       <section className="content">
