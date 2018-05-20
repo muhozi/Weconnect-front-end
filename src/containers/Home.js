@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux'
+import { connect } from 'react-redux';
 
-class Home extends Component {
+export class Home extends Component {
   render() {
     return (
       <div className="App">
@@ -14,18 +14,11 @@ class Home extends Component {
 }
 
 const mapStateToProps = state => {
-  return {
-
-  }
-}
+  return {};
+};
 
 const mapDispatchToProps = dispatch => {
-  return {
+  return {};
+};
 
-  }
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Home)
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

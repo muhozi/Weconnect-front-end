@@ -1,26 +1,24 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import uuid from 'uuid/v4';
-import {Helmet} from 'react-helmet';
+import { Helmet } from 'react-helmet';
 
-class Register extends Component {
+export class Register extends Component {
   render() {
     return (
       <section className="content">
         <Helmet>
-            <title>Create an account - We Connect</title>
-            <meta name="description" content="Login" />
+          <title>Create an account - We Connect</title>
+          <meta name="description" content="Login" />
         </Helmet>
-      	{
-          (this.props.fruits)?
-            <ul>
-            {(this.props.fruits.map((fruit)=>(
-                <li key={uuid()}>{fruit}</li>
-              )))
-            }
+        {this.props.fruits ? (
+          <ul>
+            {this.props.fruits.map(fruit => <li key={uuid()}>{fruit}</li>)}
           </ul>
-          :<b>No fruits yet</b>
-        }
+        ) : (
+          <b>No fruits yet</b>
+        )}
       </section>
     );
   }
@@ -28,17 +26,15 @@ class Register extends Component {
 
 const mapStateToProps = state => {
   return {
-    'fruits': state.samples.data,
-  }
-}
+    fruits: state.samples.data
+  };
+};
 
 const mapDispatchToProps = dispatch => {
-  return {
+  return {};
+};
+Register.propTypes = {
+  fruits: PropTypes.array
+};
 
-  }
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Register)
+export default connect(mapStateToProps, mapDispatchToProps)(Register);
