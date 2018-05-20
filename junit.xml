@@ -1,26 +1,26 @@
-<testsuites name="jest tests" tests="6" failures="0" time="2.2">
-  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2018-05-20T07:44:13" time="1.108" tests="1">
-    <testcase classname=" renders without crashing" name=" renders without crashing" time="0.006">
+<testsuites name="jest tests" tests="6" failures="0" time="3.274">
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2018-05-20T08:34:57" time="1.106" tests="1">
+    <testcase classname=" renders without crashing" name=" renders without crashing" time="0.005">
     </testcase>
   </testsuite>
-  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2018-05-20T07:44:14" time="0.259" tests="1">
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2018-05-20T08:34:58" time="0.314" tests="1">
     <testcase classname=" renders without crashing" name=" renders without crashing" time="0.035">
     </testcase>
   </testsuite>
-  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2018-05-20T07:44:15" time="0.079" tests="1">
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2018-05-20T08:34:59" time="0.128" tests="1">
     <testcase classname=" renders without crashing" name=" renders without crashing" time="0.001">
     </testcase>
   </testsuite>
-  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2018-05-20T07:44:15" time="0.08" tests="1">
-    <testcase classname=" renders without crashing" name=" renders without crashing" time="0.001">
-    </testcase>
-  </testsuite>
-  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2018-05-20T07:44:15" time="0.077" tests="1">
-    <testcase classname=" renders without crashing" name=" renders without crashing" time="0.001">
-    </testcase>
-  </testsuite>
-  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2018-05-20T07:44:15" time="0.082" tests="1">
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2018-05-20T08:34:59" time="0.099" tests="1">
     <testcase classname=" renders without crashing" name=" renders without crashing" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2018-05-20T08:34:59" time="0.095" tests="1">
+    <testcase classname=" renders without crashing" name=" renders without crashing" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2018-05-20T08:34:59" time="0.091" tests="1">
+    <testcase classname=" renders without crashing" name=" renders without crashing" time="0.001">
     </testcase>
   </testsuite>
 </testsuites>
