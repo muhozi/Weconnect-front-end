@@ -25,7 +25,7 @@ export default class Header extends Component {
   }
   render() {
     return (
-      <div>
+      <React.Fragment>
         <Navbar color="light" light expand="md">
           <NavbarBrand href="/">We Connect</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
@@ -66,7 +66,7 @@ export default class Header extends Component {
             </Nav>
           </Collapse>
         </Navbar>
-      </div>
+      </React.Fragment>
     );
   }
 }
