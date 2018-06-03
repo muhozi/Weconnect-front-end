@@ -2,25 +2,15 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { Alert } from 'reactstrap';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import { register } from '../../actions/AuthActions';
-
-const Error = props =>
-  props.errors[props.name] ? (
-    <div className="col-sm-9 small text-danger">
-      <span>
-        {props.errors[props.name].map((error, key) => (
-          <i key={key}>
-            {error}
-            {props.errors[props.name][key + 1] === undefined ? null : ', '}
-          </i>
-        ))}
-      </span>
-    </div>
-  ) : null;
+import { Error } from '../../components';
+/**
+ * Register component
+ */
 export class Register extends Component {
   constructor(props) {
     super(props);
@@ -41,20 +31,12 @@ export class Register extends Component {
   register(e) {
     e.preventDefault();
     this.props.register(this.state);
-    if (this.props.message.register_success) {
-      // console.log("Running not working");
-      this.setState({
-        username: '',
-        email: '',
-        password: '',
-        confirm_password: ''
-      });
-    }
   }
 
   render() {
     return (
       <Fragment>
+        {this.props.auth.logged_in === true ? <Redirect to="/account" /> : null}
         <Helmet>
           <title>Create an account - We Connect</title>
           <meta name="description" content="Login" />
@@ -85,21 +67,25 @@ export class Register extends Component {
                   </div>
                   <div className="card-body">
                     <form method="POST" onSubmit={this.register}>
-                      {this.props.message.message &&
-                        this.props.message.error ? (
-                          <div className="form-group row justify-content-center">
-                            <div className="col-md-9">
-                              <Alert
-                                color="danger"
-                                isOpen={this.props.message.error}
-                                toggle={this.props.dismissMessage}
-                                className="small"
-                              >
-                                {this.props.message.message}
-                              </Alert>
-                            </div>
+                      {this.props.message.message ? (
+                        <div className="form-group row justify-content-center">
+                          <div className="col-md-9">
+                            <Alert
+                              color={
+                                this.props.message.error ? 'danger' : 'success'
+                              }
+                              isOpen={
+                                this.props.message.error ||
+                                this.props.message.success
+                              }
+                              toggle={this.props.dismissMessage}
+                              className="small"
+                            >
+                              {this.props.message.message}
+                            </Alert>
                           </div>
-                        ) : null}
+                        </div>
+                      ) : null}
                       <div className="form-group row justify-content-center">
                         <div className="input-group input-group-sm col-md-9">
                           <div className="input-group-prepend">
@@ -197,7 +183,11 @@ export class Register extends Component {
                     </form>
                   </div>
                   <div className="card-body text-center">
-                    <Link to="/login" className="text-secondary">
+                    <Link
+                      to="/login"
+                      className="text-secondary"
+                      onClick={() => this.props.dismissMessage()}
+                    >
                       Have an account? Login
                     </Link>
                   </div>
@@ -213,7 +203,8 @@ export class Register extends Component {
 }
 
 const mapStateToProps = state => ({
-  message: state.message
+  message: state.message,
+  auth: state.auth
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -221,12 +212,16 @@ const mapDispatchToProps = dispatch => ({
   dismissMessage: data => dispatch({ type: 'DISMISS_MESSAGE' })
 });
 Register.propTypes = {
+  /** Message reducer state  */
   message: PropTypes.object,
+  /** Authentication reducer state  */
+  auth: PropTypes.object,
+  /** Login action */
   register: PropTypes.func,
+  /** Dismiss messages action  */
   dismissMessage: PropTypes.func
 };
-Error.propTypes = {
-  errors: PropTypes.object,
-  name: PropTypes.string
-};
-export default connect(mapStateToProps, mapDispatchToProps)(Register);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Register);

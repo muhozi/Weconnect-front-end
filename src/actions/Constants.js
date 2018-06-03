@@ -10,3 +10,5 @@ export const CHECKING_TOKEN = 'CHECKING_TOKEN';
 export const SET_TOKEN = 'SET_TOKEN';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const NO_TOKEN = 'NO_TOKEN';
+export const SUCCESS_TOKEN = 'SUCCESS_TOKEN';
