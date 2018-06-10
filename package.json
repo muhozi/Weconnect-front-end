@@ -24,8 +24,8 @@
     "build": "npm run build-css && react-scripts build",
     "build-css": "node-sass-chokidar ./src/styles/app.scss ./src/styles/app.min.css --include-path ./node_modules src/styles -o src/styles --output-style compressed",
     "watch-css": "npm run build-css && node-sass-chokidar ./src/styles/app.scss ./src/styles/app.min.css --include-path ./node_modules src/styles -o src/styles --watch --recursive",
-    "test": "react-scripts test --env=jsdom --coverage",
-    "test:ci": "react-scripts test --env=jsdom --coverage --testResultsProcessor",
+    "test": "react-scripts test --env=jsdom --coverage --collectCoverageFrom=src/*** --collectCoverageFrom=!src/registerServiceWorker.js",
+    "test:ci": "react-scripts test --env=jsdom --coverage --collectCoverageFrom=src/*** --collectCoverageFrom=!src/registerServiceWorker.js",
     "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls",
     "eject": "react-scripts eject",
     "lint": "./node_modules/eslint/bin/eslint.js ./src"
