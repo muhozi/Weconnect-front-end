@@ -95,15 +95,19 @@ export function checkToken(dispatch) {
   }
 }
 
+const removeToken = () => {
+  localStorage.removeItem('logged_in');
+  localStorage.removeItem('access_token');
+  localStorage.removeItem('auth_user');
+  return true;
+};
+
 /** Logout method */
 export function logout(dispatch) {
   auth_request()
     .post('/auth/logout', {})
     .then(response => {
-      console.log(response);
-      localStorage.removeItem('logged_in');
-      localStorage.removeItem('access_token');
-      localStorage.removeItem('auth_user');
+      removeToken();
       dispatch({
         type: LOGOUT,
         data:
@@ -114,6 +118,16 @@ export function logout(dispatch) {
     })
     .catch(error => {
       let resp = network_error(error);
+      if (resp.status === 401) {
+        removeToken();
+        dispatch({
+          type: LOGOUT,
+          data:
+            resp.data !== undefined
+              ? resp.message
+              : 'Unknown response'
+        });
+      }
       dispatch({
         type: ERROR,
         errors: resp.errors,
@@ -131,6 +145,7 @@ export const network_error = error => {
     };
   } else {
     return {
+      status: error.response.status || '',
       errors: error.response.data.errors || {},
       message: error.response.data.message || 'Something went wrong!'
     };
