@@ -1,10 +1,13 @@
-import { CHECKING_TOKEN, SUCCESS_TOKEN, NO_TOKEN } from '../actions/Constants';
+import {
+  CHECKING_TOKEN,
+  SUCCESS_TOKEN,
+  NO_TOKEN,
+  LOGOUT
+} from '../actions/Constants';
 /**
- *
- * @param {object} state - Initial Reducer state
- * @param {object} action - action
+ * Authentication Reducer
  */
-export default function sampleReducer(state = {}, action) {
+export default function AuthReducer(state = {}, action) {
   switch (action.type) {
     case CHECKING_TOKEN:
       return {
@@ -17,25 +20,36 @@ export default function sampleReducer(state = {}, action) {
         message: 'Loading ...'
       };
     case SUCCESS_TOKEN:
-      console.log('Authenticated');
       return {
         ...state,
         loading: false,
         error: false,
         logged_in: true,
         errors: {},
-        token: action.data.token,
+        token: action.data.access_token,
+        user: action.data.user,
         message: null
       };
     case NO_TOKEN:
-      console.log('Unauthenticated');
+      return {
+        ...state,
+        loading: false,
+        error: false,
+        logged_in: false,
+        logged_out: true,
+        errors: {},
+        message: null
+      };
+    case LOGOUT:
       return {
         ...state,
         loading: false,
         error: false,
         logged_in: false,
         errors: {},
-        message: null
+        token: null,
+        user: {},
+        message: action.data.message
       };
     default:
       return state;

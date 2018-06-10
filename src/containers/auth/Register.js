@@ -42,161 +42,165 @@ export class Register extends Component {
           <meta name="description" content="Login" />
         </Helmet>
         <Header />
-        <section className="content">
-          <div className="container">
-            <div className="row justify-content-end account-card">
-              <div className="col-md-6">
-                <div>
-                  <h1
-                    className="text-center text-light"
-                    style={{ fontSize: '160px' }}
-                  >
-                    <i className="icon ion-ios-chatbubbles" />
-                  </h1>
-                  <p className="text-light text-center">
-                    Join WeConnect, and Say something!<br />
-                    <br />
-                    Add your business and hear about it
-                  </p>
-                </div>
-              </div>
-              <div className="col-md-6 no-padding">
-                <div className="card card-form animated fadeIn">
-                  <div className="card-header text-center">
-                    <h5 className="form-header">Create an account</h5>
+        <div className="body-img">
+          <section className="content">
+            <div className="container">
+              <div className="row justify-content-end account-card">
+                <div className="col-md-6">
+                  <div>
+                    <h1
+                      className="text-center text-light"
+                      style={{ fontSize: '160px' }}
+                    >
+                      <i className="icon ion-ios-chatbubbles" />
+                    </h1>
+                    <p className="text-light text-center">
+                      Join WeConnect, and Say something!<br />
+                      <br />
+                      Add your business and hear about it
+                    </p>
                   </div>
-                  <div className="card-body">
-                    <form method="POST" onSubmit={this.register}>
-                      {this.props.message.message ? (
+                </div>
+                <div className="col-md-6 no-padding">
+                  <div className="card card-form animated fadeIn">
+                    <div className="card-header text-center">
+                      <h5 className="form-header">Create an account</h5>
+                    </div>
+                    <div className="card-body">
+                      <form method="POST" onSubmit={this.register}>
+                        {this.props.message.message ? (
+                          <div className="form-group row justify-content-center">
+                            <div className="col-md-9">
+                              <Alert
+                                color={
+                                  this.props.message.error
+                                    ? 'danger'
+                                    : 'success'
+                                }
+                                isOpen={
+                                  this.props.message.error ||
+                                  this.props.message.success
+                                }
+                                toggle={this.props.dismissMessage}
+                                className="small"
+                              >
+                                {this.props.message.message}
+                              </Alert>
+                            </div>
+                          </div>
+                        ) : null}
+                        <div className="form-group row justify-content-center">
+                          <div className="input-group input-group-sm col-md-9">
+                            <div className="input-group-prepend">
+                              <div className="input-group-text">
+                                <i className="ion-ios-person" />
+                              </div>
+                            </div>
+                            <input
+                              type="text"
+                              name="username"
+                              onChange={this.handleChange}
+                              value={this.state.username}
+                              className="form-control"
+                              placeholder="Username..."
+                            />
+                          </div>
+                          <Error
+                            errors={this.props.message.errors}
+                            name="username"
+                          />
+                        </div>
+                        <div className="form-group row justify-content-center">
+                          <div className="input-group input-group-sm col-md-9">
+                            <div className="input-group-prepend">
+                              <div className="input-group-text">
+                                <i className="icon ion-ios-mail" />
+                              </div>
+                            </div>
+                            <input
+                              type="email"
+                              name="email"
+                              onChange={this.handleChange}
+                              value={this.state.email}
+                              className="form-control"
+                              placeholder="Email..."
+                            />
+                          </div>
+                          <Error
+                            errors={this.props.message.errors}
+                            name="email"
+                          />
+                        </div>
+                        <div className="form-group row justify-content-center">
+                          <div className="input-group input-group-sm col-md-9">
+                            <div className="input-group-prepend">
+                              <div className="input-group-text">
+                                <i className="icon ion-ios-unlock" />
+                              </div>
+                            </div>
+                            <input
+                              type="password"
+                              name="password"
+                              onChange={this.handleChange}
+                              value={this.state.password}
+                              className="form-control"
+                              placeholder="Password..."
+                            />
+                          </div>
+                          <Error
+                            errors={this.props.message.errors}
+                            name="password"
+                          />
+                        </div>
+                        <div className="form-group row justify-content-center">
+                          <div className="input-group input-group-sm col-md-9">
+                            <div className="input-group-prepend">
+                              <div className="input-group-text">
+                                <i className="icon ion-ios-unlock" />
+                              </div>
+                            </div>
+                            <input
+                              type="password"
+                              name="confirm_password"
+                              onChange={this.handleChange}
+                              value={this.state.confirm_password}
+                              className="form-control"
+                              placeholder="Confirm password..."
+                            />
+                          </div>
+                          <Error
+                            errors={this.props.message.errors}
+                            name="confirm_password"
+                          />
+                        </div>
                         <div className="form-group row justify-content-center">
                           <div className="col-md-9">
-                            <Alert
-                              color={
-                                this.props.message.error ? 'danger' : 'success'
-                              }
-                              isOpen={
-                                this.props.message.error ||
-                                this.props.message.success
-                              }
-                              toggle={this.props.dismissMessage}
-                              className="small"
+                            <button
+                              type="submit"
+                              className="btn btn-secondary btn-block btn-sm"
                             >
-                              {this.props.message.message}
-                            </Alert>
+                              Create account
+                            </button>
                           </div>
                         </div>
-                      ) : null}
-                      <div className="form-group row justify-content-center">
-                        <div className="input-group input-group-sm col-md-9">
-                          <div className="input-group-prepend">
-                            <div className="input-group-text">
-                              <i className="ion-ios-person" />
-                            </div>
-                          </div>
-                          <input
-                            type="text"
-                            name="username"
-                            onChange={this.handleChange}
-                            value={this.state.username}
-                            className="form-control"
-                            placeholder="Username..."
-                          />
-                        </div>
-                        <Error
-                          errors={this.props.message.errors}
-                          name="username"
-                        />
-                      </div>
-                      <div className="form-group row justify-content-center">
-                        <div className="input-group input-group-sm col-md-9">
-                          <div className="input-group-prepend">
-                            <div className="input-group-text">
-                              <i className="icon ion-ios-mail" />
-                            </div>
-                          </div>
-                          <input
-                            type="email"
-                            name="email"
-                            onChange={this.handleChange}
-                            value={this.state.email}
-                            className="form-control"
-                            placeholder="Email..."
-                          />
-                        </div>
-                        <Error
-                          errors={this.props.message.errors}
-                          name="email"
-                        />
-                      </div>
-                      <div className="form-group row justify-content-center">
-                        <div className="input-group input-group-sm col-md-9">
-                          <div className="input-group-prepend">
-                            <div className="input-group-text">
-                              <i className="icon ion-ios-unlock" />
-                            </div>
-                          </div>
-                          <input
-                            type="password"
-                            name="password"
-                            onChange={this.handleChange}
-                            value={this.state.password}
-                            className="form-control"
-                            placeholder="Password..."
-                          />
-                        </div>
-                        <Error
-                          errors={this.props.message.errors}
-                          name="password"
-                        />
-                      </div>
-                      <div className="form-group row justify-content-center">
-                        <div className="input-group input-group-sm col-md-9">
-                          <div className="input-group-prepend">
-                            <div className="input-group-text">
-                              <i className="icon ion-ios-unlock" />
-                            </div>
-                          </div>
-                          <input
-                            type="password"
-                            name="confirm_password"
-                            onChange={this.handleChange}
-                            value={this.state.confirm_password}
-                            className="form-control"
-                            placeholder="Confirm password..."
-                          />
-                        </div>
-                        <Error
-                          errors={this.props.message.errors}
-                          name="confirm_password"
-                        />
-                      </div>
-                      <div className="form-group row justify-content-center">
-                        <div className="col-md-9">
-                          <button
-                            type="submit"
-                            className="btn btn-secondary btn-block btn-sm"
-                          >
-                            Create account
-                          </button>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                  <div className="card-body text-center">
-                    <Link
-                      to="/login"
-                      className="text-secondary"
-                      onClick={() => this.props.dismissMessage()}
-                    >
-                      Have an account? Login
-                    </Link>
+                      </form>
+                    </div>
+                    <div className="card-body text-center">
+                      <Link
+                        to="/login"
+                        className="text-secondary"
+                        onClick={() => this.props.dismissMessage()}
+                      >
+                        Have an account? Login
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </section>
-        <Footer />
+          </section>
+          <Footer />
+        </div>
       </Fragment>
     );
   }

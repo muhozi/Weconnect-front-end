@@ -3,7 +3,8 @@ import {
   GET_MESSAGE,
   DISMISS_MESSAGE,
   REGISTER_SUCCESS,
-  LOGIN_SUCCESS
+  LOGIN_SUCCESS,
+  LOGOUT,
 } from '../actions/Constants';
 
 const initialState = {
@@ -13,11 +14,9 @@ const initialState = {
   error: false
 };
 /**
- *
- * @param {object} state - Initial Reducer state
- * @param {object} action - action
+ * Message reducers
  */
-export default function sampleReducer(state = initialState, action) {
+export default function MessageReducer(state = initialState, action) {
   switch (action.type) {
     case REGISTER_SUCCESS:
       return {
@@ -37,7 +36,17 @@ export default function sampleReducer(state = initialState, action) {
         errors: {},
         message: action.message
       };
+    case LOGOUT:
+      return {
+        ...state,
+        success: true,
+        error: false,
+        logout_success: true,
+        errors: {},
+        message: action.data
+      };
     case ERROR:
+      console.log(action);
       return {
         ...state,
         success: false,

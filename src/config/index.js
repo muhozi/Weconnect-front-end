@@ -7,6 +7,16 @@ export const request = axios.create({
   baseURL: api_url,
   headers: {
     Accept: 'application/json',
-    'Content-Type': 'application/json',
-  },
+    'Content-Type': 'application/json'
+  }
 });
+/** Request instance with an Authorization token */
+export const auth_request = () =>
+  axios.create({
+    baseURL: api_url,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: store.getState().auth.token
+    }
+  });
