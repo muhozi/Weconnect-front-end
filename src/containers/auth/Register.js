@@ -8,6 +8,8 @@ import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import { register } from '../../actions/AuthActions';
 import { Error } from '../../components';
+import logo from '../../assets/images/logo-white.png';
+
 /**
  * Register component
  */
@@ -47,13 +49,10 @@ export class Register extends Component {
             <div className="container">
               <div className="row justify-content-end account-card">
                 <div className="col-md-6">
-                  <div>
-                    <h1
-                      className="text-center text-light"
-                      style={{ fontSize: '160px' }}
-                    >
-                      <i className="icon ion-ios-chatbubbles" />
-                    </h1>
+                  <div className="m-5 text-center text-light">
+                    <img src={logo} alt="logo" />
+                    <br />
+                    <br />
                     <p className="text-light text-center">
                       Join WeConnect, and Say something!<br />
                       <br />
