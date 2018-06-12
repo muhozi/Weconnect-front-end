@@ -33,9 +33,9 @@ class Header extends Component {
   render() {
     return (
       <Fragment>
-        <Navbar color="light" light expand="md">
-          <div className="container">
-            <NavbarBrand href="/">We Connect</NavbarBrand>
+        <Navbar style={{ backgroundColor:'rgba(206, 203, 203, 0.76'}} light expand="md">
+          <div className="container no-pad">
+            <NavbarBrand href="/" className="logo-header">We Connect</NavbarBrand>
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <div className="col-md-7 no-padding">
@@ -81,7 +81,7 @@ class Header extends Component {
                     <NavItem>
                       <Link to="/login" className="nav-link">
                         <Button
-                          color="secondary"
+                          color="primary"
                           size="sm"
                           className="sign-btn"
                         >

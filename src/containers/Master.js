@@ -16,17 +16,17 @@ class Master extends Component {
                 <div className="nav flex-column nav-pills">
                   <Link
                     to="/account/businesses/add"
-                    className="nav-link active bg-dark"
+                    className="nav-link active bg-primary"
                   >
                     <i className="icon ion-ios-add-circle-outline" />&nbsp; Add
                     new business
                   </Link>
-                  <Link to="/account/businesses" className="nav-link text-dark">
+                  <Link to="/account/businesses" className="nav-link text-primary">
                     <i className="icon ion-ios-business" />&nbsp; My businesses
                   </Link>
                   <Link
                     to="/account/businesses/reviews"
-                    className="nav-link text-dark"
+                    className="nav-link text-primary"
                   >
                     <i className="icon ion-ios-chatbubbles" />&nbsp; Reviews
                   </Link>
@@ -36,14 +36,10 @@ class Master extends Component {
             </div>
           </div>
         </section>
-        <footer className="text-center">
-          <div className="container">
-            &copy; WeConnect - Made with{' '}
-            <span role="img" aria-labelledby="Made with love">
-              ❤️
-            </span>by Emery
-          </div>
-        </footer>
+        <footer className="text-center text-primary">
+          &copy; WeConnect - Made with{' '}
+          <i className="icon ion-ios-heart text-secondary" /> by Emery
+        </footer>;
       </section>
     );
   }

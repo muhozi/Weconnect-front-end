@@ -48,14 +48,14 @@ class Login extends Component {
           <title>Login - We Connect</title>
           <meta name="description" content="Login" />
         </Helmet>
-        <Header />
         <div className="body-img">
+          <Header />
           <section className="content">
             <div className="container">
               <div className="row justify-content-end account-card">
                 <div className="col-md-6">
                   <div className="m-5 text-center text-light">
-                    <img src={logo} alt="logo" />
+                    <img src={logo} className="logo" alt="logo"/>
                     <br />
                     <br />
                     <p className="text-light text-center">
@@ -104,6 +104,7 @@ class Login extends Component {
                               onChange={this.handleChange}
                               className="form-control"
                               placeholder="Email ..."
+                              autoComplete="off"
                             />
                           </div>
                           <Error
@@ -135,7 +136,7 @@ class Login extends Component {
                           <div className="col-md-9">
                             <button
                               type="submit"
-                              className="btn btn-secondary btn-block btn-sm"
+                              className="btn btn-primary btn-block btn-sm"
                             >
                               Login
                             </button>
@@ -146,7 +147,7 @@ class Login extends Component {
                     <div className="card-body text-center">
                       <Link
                         to="/register"
-                        className="text-secondary"
+                        className="text-primary"
                         onClick={() => this.props.dismissMessage()}
                       >
                         Create an account

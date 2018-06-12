@@ -50,7 +50,7 @@ export class Register extends Component {
               <div className="row justify-content-end account-card">
                 <div className="col-md-6">
                   <div className="m-5 text-center text-light">
-                    <img src={logo} alt="logo" />
+                    <img src={logo} className="logo" alt="banner" />
                     <br />
                     <br />
                     <p className="text-light text-center">
@@ -102,6 +102,7 @@ export class Register extends Component {
                               value={this.state.username}
                               className="form-control"
                               placeholder="Username..."
+                              autoComplete="off"
                             />
                           </div>
                           <Error
@@ -123,6 +124,7 @@ export class Register extends Component {
                               value={this.state.email}
                               className="form-control"
                               placeholder="Email..."
+                              autoComplete="off"
                             />
                           </div>
                           <Error
@@ -176,7 +178,7 @@ export class Register extends Component {
                           <div className="col-md-9">
                             <button
                               type="submit"
-                              className="btn btn-secondary btn-block btn-sm"
+                              className="btn btn-primary btn-block btn-sm"
                             >
                               Create account
                             </button>
@@ -187,7 +189,7 @@ export class Register extends Component {
                     <div className="card-body text-center">
                       <Link
                         to="/login"
-                        className="text-secondary"
+                        className="text-primary"
                         onClick={() => this.props.dismissMessage()}
                       >
                         Have an account? Login
