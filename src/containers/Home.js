@@ -4,21 +4,17 @@ import { connect } from 'react-redux';
 export class Home extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Home Component</h1>
+      <div>
+        <header>
+          <h1>Home Component</h1>
         </header>
       </div>
     );
   }
 }
 
-const mapStateToProps = state => {
-  return {};
-};
+const mapStateToProps = state => ({});
 
-const mapDispatchToProps = dispatch => {
-  return {};
-};
+const mapDispatchToProps = dispatch => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

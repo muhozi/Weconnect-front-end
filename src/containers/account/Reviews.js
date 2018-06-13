@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Master from '../Master';
 
+/** User businesses component */
 export class Reviews extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Reviews Component</h1>
-        </header>
-      </div>
+      <Master>
+        <h1> Reviews</h1>
+      </Master>
     );
   }
 }
@@ -17,4 +17,7 @@ const mapStateToProps = state => ({});
 
 const mapDispatchToProps = dispatch => ({});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Reviews);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Reviews);
