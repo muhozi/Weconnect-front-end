@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { Link, Redirect } from 'react-router-dom';
-import { Alert } from 'reactstrap';
+import { Alert, Button, Card, CardHeader, CardBody } from 'reactstrap';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import { register } from '../../actions/AuthActions';
-import { Error } from '../../components';
+import { Error, InputGroup } from '../../components';
 import logo from '../../assets/images/logo-white.png';
 
 /**
@@ -48,7 +48,7 @@ export class Register extends Component {
           <section className="content">
             <div className="container">
               <div className="row justify-content-end account-card">
-                <div className="col-md-6">
+                <div className="col-md-6 d-none d-md-block">
                   <div className="m-5 text-center text-light">
                     <img src={logo} className="logo" alt="banner" />
                     <br />
@@ -61,11 +61,11 @@ export class Register extends Component {
                   </div>
                 </div>
                 <div className="col-md-6 no-padding">
-                  <div className="card card-form animated fadeIn">
-                    <div className="card-header text-center">
-                      <h5 className="form-header">Create an account</h5>
-                    </div>
-                    <div className="card-body">
+                  <Card className="card-form">
+                    <CardHeader className="text-center">
+                      Create an account
+                    </CardHeader>
+                    <CardBody>
                       <form method="POST" onSubmit={this.register}>
                         {this.props.message.message ? (
                           <div className="form-group row justify-content-center">
@@ -89,86 +89,60 @@ export class Register extends Component {
                           </div>
                         ) : null}
                         <div className="form-group row justify-content-center">
-                          <div className="input-group input-group-sm col-md-9">
-                            <div className="input-group-prepend">
-                              <div className="input-group-text">
-                                <i className="ion-ios-person" />
-                              </div>
-                            </div>
-                            <input
-                              type="text"
-                              name="username"
-                              onChange={this.handleChange}
-                              value={this.state.username}
-                              className="form-control"
-                              placeholder="Username..."
-                              autoComplete="off"
-                            />
-                          </div>
+                          <InputGroup
+                            type="text"
+                            name="username"
+                            onChange={this.handleChange}
+                            value={this.state.username}
+                            placeholder="Username..."
+                            autoComplete="off"
+                            icon="ion-ios-person"
+                          />
                           <Error
                             errors={this.props.message.errors}
                             name="username"
                           />
                         </div>
                         <div className="form-group row justify-content-center">
-                          <div className="input-group input-group-sm col-md-9">
-                            <div className="input-group-prepend">
-                              <div className="input-group-text">
-                                <i className="icon ion-ios-mail" />
-                              </div>
-                            </div>
-                            <input
-                              type="email"
-                              name="email"
-                              onChange={this.handleChange}
-                              value={this.state.email}
-                              className="form-control"
-                              placeholder="Email..."
-                              autoComplete="off"
-                            />
-                          </div>
+                          <InputGroup
+                            type="text"
+                            name="email"
+                            onChange={this.handleChange}
+                            value={this.state.email}
+                            placeholder="Email..."
+                            autoComplete="off"
+                            icon="icon ion-ios-mail"
+                          />
                           <Error
                             errors={this.props.message.errors}
                             name="email"
                           />
                         </div>
                         <div className="form-group row justify-content-center">
-                          <div className="input-group input-group-sm col-md-9">
-                            <div className="input-group-prepend">
-                              <div className="input-group-text">
-                                <i className="icon ion-ios-unlock" />
-                              </div>
-                            </div>
-                            <input
-                              type="password"
-                              name="password"
-                              onChange={this.handleChange}
-                              value={this.state.password}
-                              className="form-control"
-                              placeholder="Password..."
-                            />
-                          </div>
+                          <InputGroup
+                            type="password"
+                            name="password"
+                            onChange={this.handleChange}
+                            value={this.state.password}
+                            placeholder="Password..."
+                            autoComplete="off"
+                            icon="icon ion-ios-unlock"
+                          />
                           <Error
                             errors={this.props.message.errors}
                             name="password"
                           />
                         </div>
                         <div className="form-group row justify-content-center">
-                          <div className="input-group input-group-sm col-md-9">
-                            <div className="input-group-prepend">
-                              <div className="input-group-text">
-                                <i className="icon ion-ios-unlock" />
-                              </div>
-                            </div>
-                            <input
-                              type="password"
-                              name="confirm_password"
-                              onChange={this.handleChange}
-                              value={this.state.confirm_password}
-                              className="form-control"
-                              placeholder="Confirm password..."
-                            />
-                          </div>
+                          <InputGroup
+                            type="password"
+                            name="confirm_password"
+                            onChange={this.handleChange}
+                            value={this.state.confirm_password}
+                            placeholder="Confirm password..."
+                            autoComplete="off"
+                            icon="icon ion-ios-unlock"
+                          />
                           <Error
                             errors={this.props.message.errors}
                             name="confirm_password"
@@ -176,16 +150,13 @@ export class Register extends Component {
                         </div>
                         <div className="form-group row justify-content-center">
                           <div className="col-md-9">
-                            <button
-                              type="submit"
-                              className="btn btn-primary btn-block btn-sm"
-                            >
-                              Create account
-                            </button>
+                            <Button color="primary" block size="sm">
+                              Create an account
+                            </Button>
                           </div>
                         </div>
                       </form>
-                    </div>
+                    </CardBody>
                     <div className="card-body text-center">
                       <Link
                         to="/login"
@@ -195,7 +166,7 @@ export class Register extends Component {
                         Have an account? Login
                       </Link>
                     </div>
-                  </div>
+                  </Card>
                 </div>
               </div>
             </div>

@@ -6,9 +6,10 @@ import {
   CHECKING_TOKEN,
   LOGIN_SUCCESS,
   SUCCESS_TOKEN,
-  LOGOUT
+  LOGOUT,
 } from './Constants.js';
-import { request, auth_request } from '../config';
+import { network_error } from './';
+import { request, auth_request, removeToken } from '../config';
 
 /**
  * Register function
@@ -29,7 +30,7 @@ export function register(dispatch, data) {
       history.push('/login');
     })
     .catch(error => {
-      let resp = network_error(error);
+      let resp = network_error(dispatch, error);
       dispatch({
         type: ERROR,
         errors: resp.errors,
@@ -46,7 +47,6 @@ export function login(dispatch, data) {
   request
     .post('/auth/login', { email, password })
     .then(response => {
-      console.log(response);
       localStorage.setItem('logged_in', true);
       localStorage.setItem('access_token', response.data.access_token);
       localStorage.setItem('auth_user', JSON.stringify(response.data.user));
@@ -64,7 +64,7 @@ export function login(dispatch, data) {
       });
     })
     .catch(error => {
-      let resp = network_error(error);
+      let resp = network_error(dispatch, error);
       dispatch({
         type: ERROR,
         errors: resp.errors,
@@ -79,6 +79,16 @@ export function checkToken(dispatch) {
   dispatch({
     type: CHECKING_TOKEN
   });
+  try {
+    let user = localStorage.getItem('auth_user');
+    JSON.parse(user);
+  } catch (error) {
+    removeToken();
+    return dispatch({
+      type: LOGOUT,
+      data: 'Invalid access token'
+    });
+  }
   let token = localStorage.getItem('access_token');
   let authenticated = localStorage.getItem('logged_in');
   let user = localStorage.getItem('auth_user');
@@ -95,13 +105,6 @@ export function checkToken(dispatch) {
   }
 }
 
-const removeToken = () => {
-  localStorage.removeItem('logged_in');
-  localStorage.removeItem('access_token');
-  localStorage.removeItem('auth_user');
-  return true;
-};
-
 /** Logout method */
 export function logout(dispatch) {
   auth_request()
@@ -117,15 +120,12 @@ export function logout(dispatch) {
       });
     })
     .catch(error => {
-      let resp = network_error(error);
+      let resp = network_error(dispatch, error);
       if (resp.status === 401) {
         removeToken();
         dispatch({
           type: LOGOUT,
-          data:
-            resp.data !== undefined
-              ? resp.message
-              : 'Unknown response'
+          data: resp.data !== undefined ? resp.message : 'Unknown response'
         });
       }
       dispatch({
@@ -135,19 +135,3 @@ export function logout(dispatch) {
       });
     });
 }
-
-/** Request error handler function, Accept error error obj */
-export const network_error = error => {
-  if (error.response === undefined) {
-    return {
-      errors: {},
-      message: error.message || 'Something went wrong'
-    };
-  } else {
-    return {
-      status: error.response.status || '',
-      errors: error.response.data.errors || {},
-      message: error.response.data.message || 'Something went wrong!'
-    };
-  }
-};

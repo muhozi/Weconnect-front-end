@@ -12,11 +12,14 @@ import { checkToken } from '../actions/AuthActions';
 import NotFound from '../containers/404';
 
 class Root extends Component {
-  componentDidMount() {
+  UNSAFE_componentWillMount() {
     this.props.checkToken();
   }
   render() {
-    return (
+    const { auth } = this.props;
+    return auth.loading === true && auth.token === null ? (
+      <h1>Loading</h1>
+    ) : (
       <Router history={history}>
         <Switch>
           <Route exact path="/login" component={Login} />

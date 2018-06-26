@@ -1,8 +1,13 @@
 import { combineReducers } from 'redux';
 import message from './MessageReducer';
 import auth from './AuthReducer';
-
+import businesses from './BusinessesReducer';
+import myBusinesses from './UserBusinessesReducer';
+import business from './BusinessReducer';
 export default combineReducers({
   message,
-  auth
+  auth,
+  businesses,
+  myBusinesses,
+  business,
 });

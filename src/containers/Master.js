@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 class Master extends Component {
   render() {
@@ -13,23 +13,32 @@ class Master extends Component {
           <div className="container main-body">
             <div className="row justify-content-center">
               <div className="col-md-3 no-padding">
-                <div className="nav flex-column nav-pills">
-                  <Link
+                <div className="nav flex-column nav-pills sticky-top">
+                  <NavLink
+                    exact
                     to="/account/businesses/add"
-                    className="nav-link active bg-primary"
+                    activeClassName="active bg-primary"
+                    className="nav-link"
                   >
                     <i className="icon ion-ios-add-circle-outline" />&nbsp; Add
                     new business
-                  </Link>
-                  <Link to="/account/businesses" className="nav-link text-primary">
+                  </NavLink>
+                  <NavLink
+                    exact
+                    to="/account/businesses"
+                    activeClassName="active bg-primary"
+                    className="nav-link"
+                  >
                     <i className="icon ion-ios-business" />&nbsp; My businesses
-                  </Link>
-                  <Link
+                  </NavLink>
+                  {/* <NavLink
+                    exact
                     to="/account/businesses/reviews"
-                    className="nav-link text-primary"
+                    activeClassName="active bg-primary"
+                    className="nav-link"
                   >
                     <i className="icon ion-ios-chatbubbles" />&nbsp; Reviews
-                  </Link>
+                  </NavLink> */}
                 </div>
               </div>
               <div className="col-md-9 body-content">{this.props.children}</div>
@@ -39,7 +48,7 @@ class Master extends Component {
         <footer className="text-center text-primary">
           &copy; WeConnect - Made with{' '}
           <i className="icon ion-ios-heart text-secondary" /> by Emery
-        </footer>;
+        </footer>
       </section>
     );
   }

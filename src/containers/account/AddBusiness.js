@@ -126,7 +126,7 @@ export class AddBusiness extends Component {
           <br />
           <div className="form-group">
             <div className="text-center">
-              <button type="submit" className="btn btn-secondary btn-sm">
+              <button type="submit" className="btn btn-primary btn-sm">
                 Save new business
               </button>
             </div>

@@ -164,3 +164,45 @@ outline: none;
 .dropdown-menu.dropdown-menu-right.show{
   border-radius: 0rem 0 0 0.25rem;
 }
+.business-hover-img{
+  max-height: 60px;
+  border: 1px solid #1f7a8c80;
+}
+.action-btn{
+  margin: 0px 3px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  font-size: 20px;
+  line-height: 26px;
+  height: 40px;
+  width: 40px;
+  text-align: center;
+  cursor: pointer;
+}
+.slim-header{
+  font-weight: 300;
+}
+a:hover{
+  text-decoration: none;
+}
+button:focus {
+    outline: 1px dotted;
+    outline: none;
+}
+.pagination>li>a, .pagination>li>span { border-radius: 50% !important;margin: 0 5px;}
+.spinning {
+  -webkit-animation: icon-spin infinite 20s linear;
+          animation: icon-spin infinite 20s linear;
+  height: 80px;
+}
+
+@-webkit-keyframes icon-spin {
+  from { -webkit-transform: rotate(0deg); transform: rotate(0deg); }
+  to { -webkit-transform: rotate(360deg); transform: rotate(360deg); }
+}
+
+@keyframes icon-spin {
+  from { -webkit-transform: rotate(0deg); transform: rotate(0deg); }
+  to { -webkit-transform: rotate(360deg); transform: rotate(360deg); }
+}

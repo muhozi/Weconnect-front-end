@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { Link, Redirect } from 'react-router-dom';
-import { Alert } from 'reactstrap';
+import { Alert, Button, Card, CardHeader, CardBody } from 'reactstrap';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import { login } from '../../actions/AuthActions';
-import { Error } from '../../components';
+import { Error, InputGroup } from '../../components';
 import logo from '../../assets/images/logo-white.png';
 
 /**
@@ -20,17 +20,15 @@ class Login extends Component {
       email: '',
       password: ''
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.login = this.login.bind(this);
   }
   /** Handle input value through state */
-  handleChange(e) {
+  handleChange = e => {
     const value = {};
     value[e.target.name] = e.target.value;
     this.setState(value);
-  }
+  };
   /** Login function */
-  login(e) {
+  login = e => {
     e.preventDefault();
     this.props.login(this.state);
     if (this.props.message.register_success) {
@@ -39,23 +37,22 @@ class Login extends Component {
         email: ''
       });
     }
-  }
+  };
   render() {
     return (
       <Fragment>
         {this.props.auth.logged_in === true ? <Redirect to="/account" /> : null}
         <Helmet>
           <title>Login - We Connect</title>
-          <meta name="description" content="Login" />
         </Helmet>
         <div className="body-img">
           <Header />
           <section className="content">
             <div className="container">
               <div className="row justify-content-end account-card">
-                <div className="col-md-6">
+                <div className="col-md-6 d-none d-md-block">
                   <div className="m-5 text-center text-light">
-                    <img src={logo} className="logo" alt="logo"/>
+                    <img src={logo} className="logo" alt="logo" />
                     <br />
                     <br />
                     <p className="text-light text-center">
@@ -64,11 +61,9 @@ class Login extends Component {
                   </div>
                 </div>
                 <div className="col-md-6 no-padding">
-                  <div className="card card-form animated fadeIn">
-                    <div className="card-header text-center">
-                      <h5 className="form-header">Login</h5>
-                    </div>
-                    <div className="card-body">
+                  <Card className="card-form">
+                    <CardHeader className="text-center">Login</CardHeader>
+                    <CardBody>
                       <form method="POST" onSubmit={this.login}>
                         {this.props.message.message ? (
                           <div className="form-group row justify-content-center">
@@ -92,41 +87,29 @@ class Login extends Component {
                           </div>
                         ) : null}
                         <div className="form-group row justify-content-center">
-                          <div className="input-group input-group-sm col-md-9">
-                            <div className="input-group-prepend">
-                              <div className="input-group-text">
-                                <i className="icon ion-ios-mail" />
-                              </div>
-                            </div>
-                            <input
-                              type="email"
-                              name="email"
-                              onChange={this.handleChange}
-                              className="form-control"
-                              placeholder="Email ..."
-                              autoComplete="off"
-                            />
-                          </div>
+                          <InputGroup
+                            onChange={this.handleChange}
+                            name="email"
+                            placeholder="Email ..."
+                            icon="icon ion-ios-mail"
+                            value={this.state.email}
+                            autoComplete="off"
+                          />
                           <Error
                             errors={this.props.message.errors}
                             name="email"
                           />
                         </div>
                         <div className="form-group row justify-content-center">
-                          <div className="input-group input-group-sm col-md-9">
-                            <div className="input-group-prepend">
-                              <div className="input-group-text">
-                                <i className="icon ion-ios-unlock" />
-                              </div>
-                            </div>
-                            <input
-                              type="password"
-                              name="password"
-                              onChange={this.handleChange}
-                              className="form-control"
-                              placeholder="Password ..."
-                            />
-                          </div>
+                          <InputGroup
+                            type="password"
+                            name="password"
+                            placeholder="Password ..."
+                            onChange={this.handleChange}
+                            icon="icon ion-ios-unlock"
+                            value={this.state.password}
+                            autoComplete="off"
+                          />
                           <Error
                             errors={this.props.message.errors}
                             name="password"
@@ -134,16 +117,13 @@ class Login extends Component {
                         </div>
                         <div className="form-group row justify-content-center">
                           <div className="col-md-9">
-                            <button
-                              type="submit"
-                              className="btn btn-primary btn-block btn-sm"
-                            >
+                            <Button color="primary" block size="sm">
                               Login
-                            </button>
+                            </Button>
                           </div>
                         </div>
                       </form>
-                    </div>
+                    </CardBody>
                     <div className="card-body text-center">
                       <Link
                         to="/register"
@@ -153,7 +133,7 @@ class Login extends Component {
                         Create an account
                       </Link>
                     </div>
-                  </div>
+                  </Card>
                 </div>
               </div>
             </div>

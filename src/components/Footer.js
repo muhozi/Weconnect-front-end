@@ -1,13 +1,9 @@
 import React from 'react';
 
-const footer = () => (
-  <React.Fragment>
-    <footer className="text-center text-light">
-      &copy; WeConnect - Made with{' '}
-      <i className="icon ion-ios-heart text-secondary">
-      </i>{' '}
-      by Emery
-    </footer>;
-  </React.Fragment>
+const Footer = () => (
+  <footer className="text-center text-light">
+    &copy; WeConnect - Made with{' '}
+    <i className="icon ion-ios-heart text-secondary" /> by Emery
+  </footer>
 );
-export default footer;
+export default Footer;

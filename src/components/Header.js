@@ -16,26 +16,34 @@ import {
   DropdownItem
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import logo from '../assets/images/logo.png';
 
 class Header extends Component {
   constructor(props) {
     super(props);
-    this.toggle = this.toggle.bind(this);
     this.state = {
       isOpen: false
     };
   }
-  toggle() {
+  toggle = () => {
     this.setState({
       isOpen: !this.state.isOpen
     });
-  }
+  };
   render() {
+    const { auth, logout } = this.props;
     return (
       <Fragment>
-        <Navbar style={{ backgroundColor:'rgba(206, 203, 203, 0.76'}} light expand="md">
+        <Navbar
+          style={{ backgroundColor: 'rgba(206, 203, 203, 0.76' }}
+          light
+          expand="md"
+        >
           <div className="container no-pad">
-            <NavbarBrand href="/" className="logo-header">We Connect</NavbarBrand>
+            <NavbarBrand href="/" className="logo-header">
+              <img src={logo} height={30} className="d-inline-block align-top" alt="Logo"/>{' '}
+              <h5 className="slim-header d-inline-block">We Connect</h5>
+            </NavbarBrand>
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <div className="col-md-7 no-padding">
@@ -59,16 +67,14 @@ class Header extends Component {
                 </form>
               </div>
               <Nav className="ml-auto" navbar>
-                {this.props.auth.logged_in === true ? (
+                {auth.logged_in === true ? (
                   <UncontrolledDropdown nav inNavbar>
                     <DropdownToggle nav caret>
-                      {this.props.auth.user.username}&nbsp;&nbsp;&nbsp;
+                      {auth.user.username}&nbsp;&nbsp;&nbsp;
                     </DropdownToggle>
                     <DropdownMenu right>
                       <DropdownItem>Profile</DropdownItem>
-                      <DropdownItem onClick={this.props.logout}>
-                        Logout
-                      </DropdownItem>
+                      <DropdownItem onClick={logout}>Logout</DropdownItem>
                     </DropdownMenu>
                   </UncontrolledDropdown>
                 ) : (
@@ -80,11 +86,7 @@ class Header extends Component {
                     </NavItem>
                     <NavItem>
                       <Link to="/login" className="nav-link">
-                        <Button
-                          color="primary"
-                          size="sm"
-                          className="sign-btn"
-                        >
+                        <Button color="primary" size="sm" className="sign-btn">
                           Login
                         </Button>
                       </Link>
