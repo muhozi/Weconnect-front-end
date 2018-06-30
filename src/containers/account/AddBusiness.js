@@ -16,14 +16,13 @@ export class AddBusiness extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.saveBusiness = this.saveBusiness.bind(this);
   }
-  handleChange(e) {
+  handleChange = (e) => {
     const value = {};
     value[e.target.name] = e.target.value;
     this.setState(value);
   }
   saveBusiness(e) {
     e.preventDefault();
-    console.log(this.state);
   }
   render() {
     return (
