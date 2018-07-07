@@ -2,8 +2,11 @@ import { LOGOUT, ERROR } from './Constants.js';
 import { removeToken } from '../config';
 /** Request error handler function, Accept error error obj */
 export const network_error = (dispatch, error) => {
-  let invalidMsg = error.response.data.message || 'Invalid token';
-  console.log(invalidMsg);
+  console.log(error);
+  let invalidMsg = '';
+  if (error.response) {
+    invalidMsg = error.response.data.message || 'Invalid token';
+  }
   if (error.response === undefined) {
     return {
       errors: {},
