@@ -2,7 +2,6 @@ import { LOGOUT, ERROR } from './Constants.js';
 import { removeToken } from '../config';
 /** Request error handler function, Accept error error obj */
 export const network_error = (dispatch, error) => {
-  console.log(error);
   let invalidMsg = '';
   if (error.response) {
     invalidMsg = error.response.data.message || 'Invalid token';
@@ -14,7 +13,8 @@ export const network_error = (dispatch, error) => {
     };
   } else if (
     error.response.status === 401 &&
-    invalidMsg.indexOf('Unauthorized') > 0
+    error.response.statusText === 'UNAUTHORIZED' &&
+    error.response.data === undefined
   ) {
     removeToken();
     return dispatch({
