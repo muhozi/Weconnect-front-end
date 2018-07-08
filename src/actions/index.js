@@ -14,17 +14,14 @@ export const network_error = (dispatch, error) => {
   } else if (
     error.response.status === 401 &&
     error.response.statusText === 'UNAUTHORIZED' &&
-    error.response.data === undefined
+    invalidMsg === 'Unauthorized'
   ) {
     removeToken();
     return dispatch({
       type: LOGOUT,
       data: 'Invalid token'
     });
-  } else if (
-    error.response.status === 401 &&
-    !invalidMsg.indexOf('Unauthorized')
-  ) {
+  } else if (error.response.status === 401 && invalidMsg !== 'Unauthorized') {
     return dispatch({
       type: ERROR,
       errors: {},

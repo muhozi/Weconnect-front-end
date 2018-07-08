@@ -79,7 +79,6 @@ class Login extends Component {
                                   this.props.message.success
                                 }
                                 toggle={this.props.dismissMessage}
-                                className="small"
                               >
                                 {this.props.message.message}
                               </Alert>

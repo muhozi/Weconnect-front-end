@@ -1,7 +1,7 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 export const InputGroup = props => (
-  <div className="input-group input-group-sm col-md-9">
+  <div className={'input-group input-group-sm col-sm-' + props.size}>
     <div className="input-group-prepend">
       <div className="input-group-text">
         <i className={props.icon} />
@@ -11,5 +11,9 @@ export const InputGroup = props => (
   </div>
 );
 InputGroup.propTypes = {
-  icon: PropTypes.string
+  icon: PropTypes.string,
+  size: PropTypes.string
+};
+InputGroup.defaultProps = {
+  size: '9'
 };

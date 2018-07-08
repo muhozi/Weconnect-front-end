@@ -33,12 +33,12 @@ export function getBusiness(dispatch, business_id) {
   dispatch({ type: GET_BUSINESS });
   request
     .get('/businesses/' + business_id + '/reviews')
-    .then(response => (
+    .then(response =>
       dispatch({
         type: GOT_BUSINESS,
         data: response.data
       })
-    ))
+    )
     .catch(error => {
       let resp = network_error(dispatch, error);
       return dispatch({

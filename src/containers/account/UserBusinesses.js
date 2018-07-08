@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import _ from 'lodash';
+import { Alert } from 'reactstrap';
 import Master from '../Master';
 import { getMyBusinesses } from '../../actions/UserBusinessesActions';
 import { Loading } from '../../components/Loaders';
@@ -32,7 +33,8 @@ const BusinessRow = props => (
         <h5 className="slim-header mt-0 mb-1">{props.business.name}</h5>
         <p>
           <small>
-            <i className="icon ion-ios-pin" />{'  '}
+            <i className="icon ion-ios-pin" />
+            {'  '}
             {props.business.city} - {props.business.country}
           </small>
         </p>
@@ -49,8 +51,10 @@ const BusinessRow = props => (
 export class Businesses extends Component {
   componentDidMount() {
     const page = this.props.match.params.page;
-    // console.log(queryString.parse(this.props.location.search));
     this.props.getMyBusinesses(page);
+  }
+  componentWillUnmount() {
+    this.props.dismissMessage();
   }
   render() {
     const { myBusinesses } = this.props;
@@ -60,6 +64,19 @@ export class Businesses extends Component {
           <title>My Businesses - We Connect</title>
         </Helmet>
         {/* <h1> My Businesses</h1> */}
+        {this.props.message.message && (
+          <div className="form-group row justify-content-center">
+            <div className="col-md-8">
+              <Alert
+                color={this.props.message.error ? 'danger' : 'success'}
+                isOpen={this.props.message.error || this.props.message.success}
+                toggle={this.props.dismissMessage}
+              >
+                {this.props.message.message}
+              </Alert>
+            </div>
+          </div>
+        )}
         {myBusinesses.businesses && myBusinesses.businesses.length > 0 ? (
           <Fragment>
             <ul className="list-unstyled">
@@ -152,17 +169,21 @@ export class Businesses extends Component {
 }
 
 const mapStateToProps = state => ({
-  myBusinesses: state.myBusinesses
+  myBusinesses: state.myBusinesses,
+  message: state.businessMessage
 });
 
 const mapDispatchToProps = dispatch => ({
-  getMyBusinesses: page => getMyBusinesses(dispatch, page)
+  getMyBusinesses: page => getMyBusinesses(dispatch, page),
+  dismissMessage: () => dispatch({ type: 'DISMISS_BUSINESS_MESSAGE' })
 });
 Businesses.propTypes = {
   /** Get businesses action */
   getMyBusinesses: PropTypes.func,
   myBusinesses: PropTypes.object,
-  match: PropTypes.object
+  match: PropTypes.object,
+  message: PropTypes.object,
+  dismissMessage: PropTypes.func
 };
 BusinessRow.propTypes = {
   business: PropTypes.object

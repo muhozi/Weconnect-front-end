@@ -30,7 +30,7 @@ export class Register extends Component {
     value[e.target.name] = e.target.value;
     this.setState(value);
   }
-  register(e) {
+  register = (e) => {
     e.preventDefault();
     this.props.register(this.state);
   }
@@ -67,7 +67,7 @@ export class Register extends Component {
                     </CardHeader>
                     <CardBody>
                       <form method="POST" onSubmit={this.register}>
-                        {this.props.message.message ? (
+                        {this.props.message.message && (
                           <div className="form-group row justify-content-center">
                             <div className="col-md-9">
                               <Alert
@@ -81,13 +81,12 @@ export class Register extends Component {
                                   this.props.message.success
                                 }
                                 toggle={this.props.dismissMessage}
-                                className="small"
                               >
                                 {this.props.message.message}
                               </Alert>
                             </div>
                           </div>
-                        ) : null}
+                        )}
                         <div className="form-group row justify-content-center">
                           <InputGroup
                             type="text"

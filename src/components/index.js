@@ -6,7 +6,7 @@ import { Modal, ModalBody, ModalFooter, ModalHeader, Button } from 'reactstrap';
 /** Error message component */
 export const Error = props =>
   props.errors[props.name] ? (
-    <div className="col-sm-9 small text-danger">
+    <div className={'col-sm-' + props.size + ' small text-danger'}>
       <span>
         {props.errors[props.name].map((error, key) => (
           <i key={key}>
@@ -63,7 +63,9 @@ Error.propTypes = {
   /** Errors object ex: [{"username":["username has been taken"]}]*/
   errors: PropTypes.object,
   /**  Error key */
-  name: PropTypes.string
+  name: PropTypes.string,
+  /**  Error div size */
+  size: PropTypes.string
 };
 MessageBox.propTypes = {
   /**  Message */
@@ -78,5 +80,10 @@ ConfirmAlert.propTypes = {
   toggle: PropTypes.func,
   title: PropTypes.string,
   action: PropTypes.func
+};
+Error.defaultProps = {
+  errors: {},
+  name: '',
+  size: '9'
 };
 export { InputGroup };

@@ -6,6 +6,9 @@ import {
   DELETING_BUSINESS,
   BUSINESS_DELETED,
   DELETE_ERROR,
+  REGISTER_BUSINESS,
+  REGISTER_BUSINESS_SUCCESS,
+  REGISTER_BUSINESS_ERROR
 } from './Constants.js';
 import { network_error } from './';
 import { auth_request } from '../config';
@@ -47,3 +50,31 @@ export const deleteBusiness = (dispatch, business_id) => {
       });
     });
 };
+/**
+ * Register Business function
+ */
+export function registerBusiness(dispatch, data) {
+  const { name, category, description, country, city } = data;
+  dispatch({ type: REGISTER_BUSINESS });
+  auth_request()
+    .post('/businesses', { name, category, description, country, city })
+    .then(response => {
+      dispatch({
+        type: REGISTER_BUSINESS_SUCCESS,
+        errors: [],
+        message:
+          response.data !== undefined
+            ? response.data.message
+            : 'Unknown response'
+      });
+      history.push('/account/businesses');
+    })
+    .catch(error => {
+      let resp = network_error(dispatch, error);
+      dispatch({
+        type: REGISTER_BUSINESS_ERROR,
+        errors: resp.errors,
+        message: resp.message
+      });
+    });
+}
