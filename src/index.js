@@ -3,7 +3,16 @@ import ReactDOM from 'react-dom';
 import 'ionicons/dist/css/ionicons.css';
 import './styles/app.css';
 import App from './App';
-import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(<App />, document.getElementById('root'));
-registerServiceWorker();
+
+if (process.env.NODE_ENV === 'development') {
+  import('./registerServiceWorker')
+    .then(registerServiceWorker => {
+      console.log('Happy coding 🙂, Don\'t give up for fixing errors 😅');
+      registerServiceWorker.default();
+    })
+    .catch(error => {
+      console.log(error);
+    });
+}
