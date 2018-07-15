@@ -51,20 +51,20 @@ export const PopModal = props => (
     <ModalBody>{props.children}</ModalBody>
     <ModalFooter>
       <Button
-        color={props.color}
-        size="sm"
-        onClick={props.action}
-        disabled={props.working}
-      >
-        {props.actionName}
-      </Button>{' '}
-      <Button
         color={'outline-' + props.color}
         size="sm"
         onClick={props.toggle}
         disabled={props.working}
       >
         Cancel
+      </Button>{' '}
+      <Button
+        color={props.color}
+        size="sm"
+        onClick={props.action}
+        disabled={props.working}
+      >
+        {props.actionName}
       </Button>
     </ModalFooter>
   </Modal>
