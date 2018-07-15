@@ -52,11 +52,19 @@ export class Business extends Component {
   editModal = () => this.props.editBusiness(!this.props.message.edit);
 
   selectCountry = val => {
-    this.setState({ country: val });
+    var state = {};
+    state['edits'] = this.state.edits;
+    state['edits']['country'] = true;
+    state['country'] = val;
+    this.setState(state);
   };
 
   selectRegion = val => {
-    this.setState({ city: val });
+    var state = {};
+    state['edits'] = this.state.edits;
+    state['edits']['city'] = true;
+    state['city'] = val;
+    this.setState(state);
   };
 
   getValue = name => {
