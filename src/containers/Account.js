@@ -5,7 +5,6 @@ import { Route, Redirect, Switch } from 'react-router-dom';
 import AddBusiness from './account/AddBusiness';
 import Businesses from './account/UserBusinesses';
 import Business from './account/Business';
-import Reviews from './account/Reviews';
 import NotFound from '../containers/404';
 
 class Account extends Component {
@@ -27,11 +26,6 @@ class Account extends Component {
             />
             <Route exact path="/account/businesses/page/:page" component={Businesses} />
             <Route exact path="/account/business/:id" component={Business} />
-            <Route
-              exact
-              path="/account/businesses/reviews"
-              component={Reviews}
-            />
             <Route component={NotFound} />
           </Switch>
         );
