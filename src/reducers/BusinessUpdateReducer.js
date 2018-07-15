@@ -1,32 +1,25 @@
 import {
-  GET_MESSAGE,
-  DISMISS_BUSINESS_MESSAGE,
-  REGISTER_BUSINESS,
-  REGISTER_BUSINESS_SUCCESS,
-  REGISTER_BUSINESS_ERROR
+  DISMISS_UPDATE_BUSINESS_MESSAGE,
+  UPDATE_BUSINESS,
+  UPDATE_BUSINESS_SUCCESS,
+  UPDATE_BUSINESS_ERROR,
+  EDIT_BUSINESS,
+  CANCEL_EDIT_BUSINESS
 } from '../actions/Constants';
 
 const initialState = {
   message: '',
   errors: {},
   success: false,
-  error: false
+  error: false,
+  edit: false
 };
 /**
  * Message reducers
  */
-export default function BusinessMsgReducer(state = initialState, action) {
+export default function BusinessReducer(state = initialState, action) {
   switch (action.type) {
-    case REGISTER_BUSINESS:
-      return {
-        ...state,
-        success: true,
-        error: false,
-        register_success: true,
-        errors: {},
-        message: action.message
-      };
-    case REGISTER_BUSINESS_SUCCESS:
+    case UPDATE_BUSINESS:
       return {
         ...state,
         success: true,
@@ -34,7 +27,15 @@ export default function BusinessMsgReducer(state = initialState, action) {
         errors: {},
         message: action.message
       };
-    case REGISTER_BUSINESS_ERROR:
+    case UPDATE_BUSINESS_SUCCESS:
+      return {
+        ...state,
+        success: true,
+        error: false,
+        errors: {},
+        message: action.message
+      };
+    case UPDATE_BUSINESS_ERROR:
       return {
         ...state,
         success: false,
@@ -42,16 +43,12 @@ export default function BusinessMsgReducer(state = initialState, action) {
         errors: action.errors,
         message: action.message
       };
-    case GET_MESSAGE:
-      return {
-        ...state,
-        success: false,
-        error: false,
-        errors: {},
-        message: ''
-      };
-    case DISMISS_BUSINESS_MESSAGE:
+    case DISMISS_UPDATE_BUSINESS_MESSAGE:
       return { ...state, message: '', errors: {} };
+    case EDIT_BUSINESS:
+      return { ...state, edit: true };
+    case CANCEL_EDIT_BUSINESS:
+      return { ...state, edit: false, message: '' };
     default:
       return state;
   }

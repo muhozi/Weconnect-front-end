@@ -19,7 +19,7 @@ const initialState = {
 /**
  * Businesses reducers
  */
-export default function BusinessesReducer(state = initialState, action) {
+export default function BusinessReducer(state = initialState, action) {
   switch (action.type) {
     case GET_BUSINESS:
       return {

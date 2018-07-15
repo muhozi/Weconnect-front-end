@@ -35,21 +35,31 @@ export const MessageBox = props => (
     </h4>
   </div>
 );
-export const ConfirmAlert = props => (
-  <Modal isOpen={props.state} toggle={props.toggle} backdrop="static">
-    <ModalHeader toggle={this.toggle}>{props.title}</ModalHeader>
+export const PopModal = props => (
+  <Modal
+    isOpen={props.state}
+    toggle={props.toggle}
+    backdrop="static"
+    size={props.size}
+  >
+    <ModalHeader
+      className="slim-header justify-content-center"
+      toggle={this.toggle}
+    >
+      {props.title}
+    </ModalHeader>
     <ModalBody>{props.children}</ModalBody>
     <ModalFooter>
       <Button
-        color="secondary"
+        color={props.color}
         size="sm"
         onClick={props.action}
         disabled={props.working}
       >
-        Yes, delete
+        {props.actionName}
       </Button>{' '}
       <Button
-        color="outline-secondary"
+        color={'outline-' + props.color}
         size="sm"
         onClick={props.toggle}
         disabled={props.working}
@@ -72,18 +82,26 @@ MessageBox.propTypes = {
   message: PropTypes.string,
   state: PropTypes.string
 };
-ConfirmAlert.propTypes = {
+PopModal.propTypes = {
   /**  Message */
   children: PropTypes.node,
   state: PropTypes.bool,
   working: PropTypes.bool,
   toggle: PropTypes.func,
   title: PropTypes.string,
-  action: PropTypes.func
+  action: PropTypes.func,
+  size: PropTypes.string,
+  color: PropTypes.string,
+  actionName: PropTypes.string
 };
 Error.defaultProps = {
   errors: {},
   name: '',
   size: '9'
+};
+PopModal.defaultProps = {
+  size: 'md',
+  color: 'secondary',
+  actionName: 'Save'
 };
 export { InputGroup };

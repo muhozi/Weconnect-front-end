@@ -8,10 +8,17 @@ import {
   DELETE_ERROR,
   REGISTER_BUSINESS,
   REGISTER_BUSINESS_SUCCESS,
-  REGISTER_BUSINESS_ERROR
+  REGISTER_BUSINESS_ERROR,
+  UPDATE_BUSINESS,
+  UPDATE_BUSINESS_SUCCESS,
+  UPDATE_BUSINESS_ERROR,
+  DISMISS_UPDATE_BUSINESS_MESSAGE,
+  EDIT_BUSINESS,
+  CANCEL_EDIT_BUSINESS
 } from './Constants.js';
 import { network_error } from './';
 import { auth_request } from '../config';
+import { getBusiness } from './BusinessesActions';
 
 /** Get user businesses action method */
 export const getMyBusinesses = (dispatch, page) => {
@@ -50,6 +57,7 @@ export const deleteBusiness = (dispatch, business_id) => {
       });
     });
 };
+
 /**
  * Register Business function
  */
@@ -78,3 +86,42 @@ export function registerBusiness(dispatch, data) {
       });
     });
 }
+
+/**
+ * Update Business function
+ */
+export function updateBusiness(dispatch, data) {
+  const { name, category, description, country, city, business_id } = data;
+  dispatch({ type: UPDATE_BUSINESS });
+  auth_request()
+    .put('/businesses/' + business_id, {
+      name,
+      category,
+      description,
+      country,
+      city
+    })
+    .then(response => {
+      dispatch({
+        type: UPDATE_BUSINESS_SUCCESS,
+        errors: [],
+        message:
+          response.data !== undefined
+            ? response.data.message
+            : 'Unknown response'
+      });
+      dispatch({ type: DISMISS_UPDATE_BUSINESS_MESSAGE });
+      dispatch({ type: CANCEL_EDIT_BUSINESS });
+      getBusiness(dispatch, business_id);
+    })
+    .catch(error => {
+      let resp = network_error(dispatch, error);
+      dispatch({
+        type: UPDATE_BUSINESS_ERROR,
+        errors: resp.errors,
+        message: resp.message
+      });
+    });
+}
+export const editBusiness = state =>
+  state ? { type: EDIT_BUSINESS } : { type: CANCEL_EDIT_BUSINESS };
