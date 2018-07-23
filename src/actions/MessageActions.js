@@ -1,8 +1,8 @@
-import { GET_MESSAGE } from './Constants.js';
+import { GET_MESSAGE } from './Constants';
 import { store } from '../config';
 
 export function get_message() {
-  return (dispatch) => {
+  return dispatch => {
     const message = store.getState().message;
     dispatch({
       type: GET_MESSAGE,

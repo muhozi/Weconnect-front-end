@@ -8,10 +8,10 @@ import { store } from '../../../config';
 
 configure({ adapter: new Adapter() });
 it('renders without crashing', () => {
-  const register = shallow(
+  const wrapper = shallow(
     <MemoryRouter keyLength={0}>
       <Register store={store} />
     </MemoryRouter>
   ).dive();
-  expect(register, 'Create an account');
+  expect(wrapper).toHaveLength(1);
 });

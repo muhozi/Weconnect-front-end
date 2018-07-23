@@ -46,7 +46,6 @@ export default function MessageReducer(state = initialState, action) {
         message: action.data
       };
     case ERROR:
-      console.log(action);
       return {
         ...state,
         success: false,

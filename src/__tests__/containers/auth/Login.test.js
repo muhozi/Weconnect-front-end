@@ -8,10 +8,10 @@ import { store } from '../../../config';
 
 configure({ adapter: new Adapter() });
 it('Render login component', () => {
-  const login = shallow(
+  const wrapper = shallow(
     <MemoryRouter>
       <Login store={store} />
     </MemoryRouter>
   ).dive();
-  expect(login, 'Login');
+  expect(wrapper).toHaveLength(1);
 });

@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Router, Route, Switch } from 'react-router-dom';
 import history from '../config/history';
 import Businesses from './Businesses';
-import Reviews from './Reviews';
 import Login from './auth/Login';
 import Register from './auth/Register';
 import Account from './Account';
@@ -12,16 +11,18 @@ import { checkToken } from '../actions/AuthActions';
 import NotFound from '../containers/404';
 
 class Root extends Component {
-  componentDidMount() {
+  UNSAFE_componentWillMount() {
     this.props.checkToken();
   }
   render() {
-    return (
+    const { auth } = this.props;
+    return auth.loading === true && auth.token === null ? (
+      <h1>Loading</h1>
+    ) : (
       <Router history={history}>
         <Switch>
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
-          <Route exact path="/reviews" component={Reviews} />
           <Route exact path="/businesses" component={Businesses} />
           <Route path="/account" component={Account} />
           <Route component={NotFound} />
