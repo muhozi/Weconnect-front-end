@@ -150,7 +150,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  login: data => login(dispatch, data),
+  login: data => dispatch(login(data)),
   dismissMessage: () => dispatch({ type: 'DISMISS_MESSAGE' })
 });
 Login.propTypes = {

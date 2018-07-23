@@ -328,9 +328,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  updateBusiness: data => updateBusiness(dispatch, data),
-  getBusiness: business_id => getBusiness(dispatch, business_id),
-  deleteBusiness: business_id => deleteBusiness(dispatch, business_id),
+  updateBusiness: data => dispatch(updateBusiness(data)),
+  getBusiness: business_id => dispatch(getBusiness(business_id)),
+  deleteBusiness: business_id => dispatch(deleteBusiness(business_id)),
   dismissMessage: (error = true) => {
     if (error) {
       return dispatch({ type: 'DISMISS_UPDATE_BUSINESS_MESSAGE' });

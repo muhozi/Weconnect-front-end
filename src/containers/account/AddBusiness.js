@@ -163,8 +163,8 @@ const mapStateToProps = state => ({
   message: state.businessMessage
 });
 
-const mapDispatchToProps = (dispatch, state) => ({
-  registerBusiness: data => registerBusiness(dispatch, data),
+const mapDispatchToProps = dispatch => ({
+  registerBusiness: data => dispatch(registerBusiness(data)),
   dismissMessage: (error = true) => {
     if (error) {
       return dispatch({ type: 'DISMISS_BUSINESS_MESSAGE' });

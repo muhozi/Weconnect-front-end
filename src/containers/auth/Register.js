@@ -183,7 +183,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  register: data => register(dispatch, data),
+  register: data => dispatch(register(data)),
   dismissMessage: data => dispatch({ type: 'DISMISS_MESSAGE' })
 });
 Register.propTypes = {

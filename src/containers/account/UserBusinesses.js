@@ -174,7 +174,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getMyBusinesses: page => getMyBusinesses(dispatch, page),
+  getMyBusinesses: page => dispatch(getMyBusinesses(page)),
   dismissMessage: () => dispatch({ type: 'DISMISS_BUSINESS_MESSAGE' })
 });
 Businesses.propTypes = {
