@@ -1,5 +1,5 @@
 import axios from 'axios';
-import store from './ConfigureStore.js';
+import store from './ConfigureStore';
 export const api_url =
   process.env.REACT_APP_API_ENV === 'development'
     ? 'http://localhost:5000/api/v1'

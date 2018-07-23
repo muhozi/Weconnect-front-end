@@ -7,8 +7,8 @@ import {
   LOGIN_SUCCESS,
   SUCCESS_TOKEN,
   LOGOUT
-} from './Constants.js';
-import { network_error } from './';
+} from './Constants';
+import { network_error } from '.';
 import { request, auth_request, removeToken } from '../config';
 
 /**
@@ -110,32 +110,35 @@ export function checkToken(dispatch) {
 }
 
 /** Logout method */
-export function logout(dispatch) {
-  auth_request()
-    .post('/auth/logout', {})
-    .then(response => {
-      removeToken();
-      dispatch({
-        type: LOGOUT,
-        data:
-          response.data !== undefined
-            ? response.data.message
-            : 'Unknown response'
-      });
-    })
-    .catch(error => {
-      let resp = dispatch(network_error(error));
-      if (resp.status === 401) {
-        removeToken();
+export function logout() {
+  return dispatch => {
+    return auth_request()
+      .post('/auth/logout', {})
+      .then(response => {
+        // removeToken();
+        console.log("Error _________((((()))))))");
         dispatch({
           type: LOGOUT,
-          data: resp.data !== undefined ? resp.message : 'Unknown response'
+          data:
+            response.data !== undefined
+              ? response.data.message
+              : 'Unknown response'
         });
-      }
-      dispatch({
-        type: ERROR,
-        errors: resp.errors,
-        message: resp.message
+      })
+      .catch(error => {
+        let resp = dispatch(network_error(error));
+        if (resp.status === 401) {
+          removeToken();
+          dispatch({
+            type: LOGOUT,
+            data: resp.data !== undefined ? resp.message : 'Unknown response'
+          });
+        }
+        dispatch({
+          type: ERROR,
+          errors: resp.errors,
+          message: resp.message
+        });
       });
-    });
+  };
 }

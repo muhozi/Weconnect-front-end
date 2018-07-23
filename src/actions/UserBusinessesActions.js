@@ -15,7 +15,7 @@ import {
   DISMISS_UPDATE_BUSINESS_MESSAGE,
   EDIT_BUSINESS,
   CANCEL_EDIT_BUSINESS
-} from './Constants.js';
+} from './Constants';
 import { network_error } from './';
 import { auth_request } from '../config';
 import { getBusiness } from './BusinessesActions';

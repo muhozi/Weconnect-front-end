@@ -1,4 +1,4 @@
-import { LOGOUT, ERROR } from './Constants.js';
+import { LOGOUT, ERROR } from './Constants';
 import { removeToken } from '../config';
 /** Request error handler function, Accept error error obj */
 export const network_error = error => {

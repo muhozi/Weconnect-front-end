@@ -1,4 +1,4 @@
-import { GET_MESSAGE } from './Constants.js';
+import { GET_MESSAGE } from './Constants';
 import { store } from '../config';
 
 export function get_message() {

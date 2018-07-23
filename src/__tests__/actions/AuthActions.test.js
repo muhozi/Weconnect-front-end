@@ -1,42 +1,80 @@
 import moxios from 'moxios';
-import { register } from '../../actions/AuthActions';
-import thunk from 'redux-thunk';
-import { api_url, request } from '../../config';
 import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import { api_url, request, auth_request } from '../../config';
+import { register, login, logout } from '../../actions/AuthActions';
+import {
+  successRegisterResponse,
+  registerFailResponse,
+  successLoginResponse,
+  loginFailResponse
+} from '../../mocks/ResponseMocks';
+import { registerDataMocks, loginDataMocks } from '../../mocks/DataMocks';
+
+// Mock redux store
+const middleware = [thunk];
+const mockStore = configureMockStore(middleware);
+
 describe('Test auth actions', () => {
-  const middleware = [thunk];
-  const mockStore = configureMockStore(middleware);
   beforeEach(() => {
     moxios.install(request);
   });
   afterEach(() => {
     moxios.uninstall(request);
   });
-  it('it dispatches ', done => {
-    const payload = {
-      status: 'ok',
-      message: 'You have been successfully registered'
-    };
+  /** Test register action */
+  it('Test if it dispatches register success', done => {
     moxios.wait(() => {
       const req = moxios.requests.mostRecent();
-      req.respondWith({
-        status: 200,
-        data: payload
-      });
+      req.respondWith(successRegisterResponse);
     });
     const expectedActions = ['REGISTER_SUCCESS'];
-    const data = {
-      username: 'muhozi',
-      email: 'muhozie@gmail.com',
-      password: '123456',
-      confirm_password: '123456'
-    };
-    const store = mockStore({});
-    // register(store.dispatch, data);
-    // const dispatchedActions = store.getActions();
-    // console.log(dispatchedActions);
-    // const actionTypes = dispatchedActions.map(action => action.type);
-    return store.dispatch(register(data)).then(() => {
+    const store = mockStore();
+    return store.dispatch(register(registerDataMocks)).then(() => {
+      const dispatchedActions = store.getActions();
+      const actionTypes = dispatchedActions.map(action => action.type);
+      expect(actionTypes).toEqual(expectedActions);
+      done();
+    });
+  });
+  /** Test registration exception acion */
+  it('Test if it dispatches registration error', done => {
+    moxios.wait(() => {
+      const req = moxios.requests.mostRecent();
+      req.respondWith(registerFailResponse);
+    });
+    const expectedActions = ['ERROR'];
+    const store = mockStore();
+    return store.dispatch(register(registerDataMocks)).then(() => {
+      const dispatchedActions = store.getActions();
+      const actionTypes = dispatchedActions.map(action => action.type);
+      expect(actionTypes).toEqual(expectedActions);
+      done();
+    });
+  });
+  /** Test login acion */
+  it('Test login action', done => {
+    moxios.wait(() => {
+      const req = moxios.requests.mostRecent();
+      req.respondWith(successLoginResponse);
+    });
+    const expectedActions = ['LOGIN_SUCCESS', 'SUCCESS_TOKEN'];
+    const store = mockStore();
+    return store.dispatch(login(loginDataMocks)).then(() => {
+      const dispatchedActions = store.getActions();
+      const actionTypes = dispatchedActions.map(action => action.type);
+      expect(actionTypes).toEqual(expectedActions);
+      done();
+    });
+  });
+  it('Test invalid login action', done => {
+    moxios.wait(() => {
+      const req = moxios.requests.mostRecent();
+      req.respondWith(loginFailResponse);
+    });
+    const expectedActions = ['ERROR'];
+    const store = mockStore();
+    return store.dispatch(login(loginDataMocks)).then(() => {
       const dispatchedActions = store.getActions();
       const actionTypes = dispatchedActions.map(action => action.type);
       expect(actionTypes).toEqual(expectedActions);

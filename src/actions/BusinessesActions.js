@@ -5,7 +5,7 @@ import {
   GOT_BUSINESS,
   GET_BUSINESS,
   BUSINESS_ERROR
-} from './Constants.js';
+} from './Constants';
 import { network_error } from './index';
 import { request } from '../config';
 
