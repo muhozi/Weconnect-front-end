@@ -20,7 +20,10 @@ import { network_error } from './';
 import { auth_request } from '../config';
 import { getBusiness } from './BusinessesActions';
 
-/** Get user businesses action method */
+/**
+ * Retrieve user businesses on certain page
+ * @param {number} page 
+ */
 export const getMyBusinesses = page => {
   return dispatch => {
     dispatch({ type: GET_MY_BUSINESSES });
@@ -42,6 +45,11 @@ export const getMyBusinesses = page => {
       });
   };
 };
+
+/**
+ * Delete business
+ * @param {string} business_id 
+ */
 export const deleteBusiness = business_id => {
   return dispatch => {
     dispatch({ type: DELETING_BUSINESS });
@@ -63,7 +71,8 @@ export const deleteBusiness = business_id => {
 };
 
 /**
- * Register Business function
+ * Register business action
+ * @param {Object} data
  */
 export function registerBusiness(data) {
   return dispatch => {
@@ -94,13 +103,14 @@ export function registerBusiness(data) {
 }
 
 /**
- * Update Business function
+ * Update the business
+ * @param {Object} data
  */
 export function updateBusiness(data) {
   return dispatch => {
     const { name, category, description, country, city, business_id } = data;
     dispatch({ type: UPDATE_BUSINESS });
-    auth_request()
+    return auth_request()
       .put('/businesses/' + business_id, {
         name,
         category,
@@ -131,5 +141,10 @@ export function updateBusiness(data) {
       });
   };
 }
+
+/**
+ * Switch the edit modal
+ * @param {boolean} state 
+ */
 export const editBusiness = state =>
   state ? { type: EDIT_BUSINESS } : { type: CANCEL_EDIT_BUSINESS };

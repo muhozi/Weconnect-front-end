@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import { Alert } from 'reactstrap';
+import { Helmet } from "react-helmet";
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import Master from '../Master';
 import { registerBusiness } from '../../actions/UserBusinessesActions';
@@ -42,6 +43,11 @@ export class AddBusiness extends Component {
     const { country, city } = this.state;
     return (
       <Master>
+        <Helmet>
+          <title>
+            Add business - We Connect
+          </title>
+        </Helmet>
         <h5 className="text-center slim-header">Add new business</h5>
         <hr />
         <form method="post" onSubmit={this.saveBusiness}>
@@ -91,7 +97,10 @@ export class AddBusiness extends Component {
           <div className="form-group row justify-content-center">
             <div className="input-group input-group-sm col-sm-8">
               <div className="input-group-prepend">
-                <div className="input-group-text" style={{ alignItems: 'flex-start'}}>
+                <div
+                  className="input-group-text"
+                  style={{ alignItems: 'flex-start' }}
+                >
                   <i className="icon ion-ios-document" />
                 </div>
               </div>

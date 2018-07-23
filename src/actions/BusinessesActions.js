@@ -9,7 +9,9 @@ import {
 import { network_error } from './index';
 import { request } from '../config';
 
-/** Get businesses method */
+/**
+ * Fetch businesses
+ */
 export function getBusinesses() {
   return dispatch => {
     dispatch({ type: GET_BUSINESSES });
@@ -31,6 +33,10 @@ export function getBusinesses() {
       });
   };
 }
+/**
+ * 
+ * @param {string} business_id 
+ */
 export function getBusiness(business_id) {
   return dispatch => {
     dispatch({ type: GET_BUSINESS });
