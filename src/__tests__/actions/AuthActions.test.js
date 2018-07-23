@@ -7,7 +7,8 @@ import {
   successRegisterResponse,
   registerFailResponse,
   successLoginResponse,
-  loginFailResponse
+  loginFailResponse,
+  logoutResponse
 } from '../../mocks/ResponseMocks';
 import { registerDataMocks, loginDataMocks } from '../../mocks/DataMocks';
 
@@ -75,6 +76,32 @@ describe('Test auth actions', () => {
     const expectedActions = ['ERROR'];
     const store = mockStore();
     return store.dispatch(login(loginDataMocks)).then(() => {
+      const dispatchedActions = store.getActions();
+      const actionTypes = dispatchedActions.map(action => action.type);
+      expect(actionTypes).toEqual(expectedActions);
+      done();
+    });
+  });
+});
+
+/** Test logout action */
+describe('Test logout actions', () => {
+  let instance = auth_request();
+  beforeEach(() => {
+    moxios.install();
+  });
+  afterEach(() => {
+    moxios.uninstall();
+  });
+  /** Test register action */
+  it('Test invalid login action', done => {
+    moxios.wait(() => {
+      const req = moxios.requests.mostRecent();
+      req.respondWith(logoutResponse);
+    });
+    const expectedActions = ['LOGOUT'];
+    const store = mockStore();
+    return store.dispatch(logout(loginDataMocks)).then(() => {
       const dispatchedActions = store.getActions();
       const actionTypes = dispatchedActions.map(action => action.type);
       expect(actionTypes).toEqual(expectedActions);

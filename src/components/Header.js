@@ -106,7 +106,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  logout: () => logout(dispatch)
+  logout: () => dispatch(logout())
 });
 Header.propTypes = {
   auth: PropTypes.object,

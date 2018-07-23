@@ -115,8 +115,7 @@ export function logout() {
     return auth_request()
       .post('/auth/logout', {})
       .then(response => {
-        // removeToken();
-        console.log("Error _________((((()))))))");
+        removeToken();
         dispatch({
           type: LOGOUT,
           data:

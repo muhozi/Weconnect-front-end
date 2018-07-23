@@ -31,3 +31,10 @@ export const loginFailResponse = {
     "message": "Invalid password"
   }
 };
+export const logoutResponse = {
+  status: 200,
+  response: {
+    "status": "ok",
+    "message": "You have successfully logged out"
+  }
+};
