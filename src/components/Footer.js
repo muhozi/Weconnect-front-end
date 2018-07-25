@@ -7,11 +7,11 @@ const Footer = props => (
     <div className="container">
       <div className="row b-footer">
         <div className="col-md-6">
-          <img src={logo} className="f-logo" />
+          <img src={logo} className="f-logo" alt="weconnect"/>
           <span className={"text-"+props.color}>We Connect</span> <br />
           <p className={"small slimmy text-"+props.color}>
             Made with <i className="icon ion-ios-heart text-secondary" /> by
-            Emery
+            <a href="https://muhozi.github.io" target="__blank"> Emery </a>
           </p>
         </div>
         <div className="col-md-6 text-right m-auto">

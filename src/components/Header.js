@@ -6,7 +6,6 @@ import {
   Collapse,
   Navbar,
   NavbarToggler,
-  NavbarBrand,
   Nav,
   NavItem,
   Button,
@@ -40,7 +39,7 @@ class Header extends Component {
           expand="md"
         >
           <div className="container no-pad">
-            <NavbarBrand href="/" className="logo-header">
+            <Link to="/" className="logo-header navbar-brand">
               <img
                 src={logo}
                 height={30}
@@ -48,14 +47,15 @@ class Header extends Component {
                 alt="Logo"
               />{' '}
               <h5 className="slim-header d-inline-block">We Connect</h5>
-            </NavbarBrand>
+            </Link>
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <div className="col-md-7 no-padding">
                 <form
                   className="form-inline"
-                  action="searchResults.html"
+                  action="#"
                   method="post"
+                  onSubmit={(e)=>{e.preventDefault(); return false;}}
                 >
                   <div className="input-group col-md-12 input-group-sm">
                     <div className="input-group-prepend">

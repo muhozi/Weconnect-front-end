@@ -19,17 +19,21 @@ const SingleBusiness = props => {
   return (
     <div className="col-md-3">
       <div className="card business-card" style={{ marginTop: '40px' }}>
-        <img
-          src={businessImg}
-          alt="business-logo"
-          className="hover-business-img img-fluid m-auto"
-        />
-        <div className="card-body">
-          <h6 className="slim-header card-title">{business.name}</h6>
-          <p className="card-text text-muted">
-            <i className="icon ion-ios-pin" /> {business.city}
-          </p>
-        </div>
+        <Link to={"/business/"+business.id} className="text-center">
+          <img
+            src={businessImg}
+            alt="business-logo"
+            className="hover-business-img img-fluid m-auto"
+          />
+        </Link>
+        <Link to={"/business/" + business.id}>
+          <div className="card-body">
+            <h6 className="slim-header card-title">{business.name}</h6>
+            <p className="card-text text-muted">
+              <i className="icon ion-ios-pin" /> {business.city}
+            </p>
+          </div>
+        </Link>
       </div>
     </div>
   );
@@ -83,8 +87,7 @@ class Home extends Component {
         <div className="body">
           <Header />
           <section
-            className="content"
-            style={{ backgroundColor: 'rgba(206, 203, 203, 0.76)' }}
+            className="content home"
           >
             <div className="container">
               <div className="row">
@@ -113,12 +116,12 @@ class Home extends Component {
                     View businesses
                   </button>{' '}
                   {!auth.logged_in === true && (
-                    <button className="btn btn-md btn-outline-primary">
+                    <Link to="/login" className="btn btn-md btn-outline-primary">
                       {' '}
                       <i className="ion-ios-add-circle-outline" />
                       {'   '}
                       Join the network
-                    </button>
+                    </Link>
                   )}
                 </div>
                 <div className="col-md-6">
@@ -176,8 +179,7 @@ class Home extends Component {
             </div>
           </section>
           <HoloSection />
-          <Footer color="muted"/>
-          
+          <Footer color="muted" />
         </div>
       </Fragment>
     );

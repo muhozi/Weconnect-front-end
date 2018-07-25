@@ -4,12 +4,13 @@ import { connect } from 'react-redux';
 import { Router, Route, Switch } from 'react-router-dom';
 import history from '../config/history';
 import Businesses from './Businesses';
+import Business from './Business';
 import Home from './Home';
 import Login from './auth/Login';
 import Register from './auth/Register';
 import Account from './Account';
-import { checkToken } from '../actions/AuthActions';
 import NotFound from '../containers/404';
+import { checkToken } from '../actions/AuthActions';
 
 class Root extends Component {
   UNSAFE_componentWillMount() {
@@ -25,6 +26,7 @@ class Root extends Component {
           <Route exact path="/login" component={Login} />
           <Route exact path="/" component={Home} />
           <Route exact path="/register" component={Register} />
+          <Route exact path="/business/:id" component={Business} />
           <Route exact path="/businesses" component={Businesses} />
           <Route path="/account" component={Account} />
           <Route component={NotFound} />

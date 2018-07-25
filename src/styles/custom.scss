@@ -12,6 +12,10 @@ body {
   min-height: 83vh;
 }
 
+.content.home {
+  background-color: rgba(206, 203, 203, 0.76);
+}
+
 .body-img {
   background-image: url('../assets/images/mauro-mora-85112-unsplash.jpg');
   background-color: rgba(0, 0, 0, 0.5);
@@ -307,4 +311,16 @@ button:focus {
 
 .footer-bg {
   background-color: 'rgb(229, 230, 230)'
+}
+
+.detailed-content {
+  padding-top: 5%;
+  padding-bottom: 0%;
+  min-height: 83vh;
+  background-color: #f8f9fa;
+}
+
+.hovered-business-img {
+  width: 60%;
+  filter: grayscale(100%)
 }
