@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import Header from '../components/Header';
 import { NavLink } from 'react-router-dom';
+import Footer from '../components/Footer';
 
-class Master extends Component {
+/**
+ * User account views wrapper
+ */
+export default class Master extends Component {
   render() {
     return (
       <section className="dash-body">
@@ -31,36 +34,17 @@ class Master extends Component {
                   >
                     <i className="icon ion-ios-business" />&nbsp; My businesses
                   </NavLink>
-                  {/* <NavLink
-                    exact
-                    to="/account/businesses/reviews"
-                    activeClassName="active bg-primary"
-                    className="nav-link"
-                  >
-                    <i className="icon ion-ios-chatbubbles" />&nbsp; Reviews
-                  </NavLink> */}
                 </div>
               </div>
               <div className="col-md-9 body-content">{this.props.children}</div>
             </div>
           </div>
         </section>
-        <footer className="text-center text-primary">
-          &copy; WeConnect - Made with{' '}
-          <i className="icon ion-ios-heart text-secondary" /> by Emery
-        </footer>
+        <Footer color="muted"/>
       </section>
     );
   }
 }
-
-const mapStateToProps = state => ({});
-
-const mapDispatchToProps = dispatch => ({});
 Master.propTypes = {
   children: PropTypes.node
 };
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Master);

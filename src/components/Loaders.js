@@ -1,7 +1,7 @@
 import React from 'react';
 import Lottie from 'react-lottie';
 import PropTypes from 'prop-types';
-import * as animationData from '../assets/lotties-anim/loader.json';
+import * as animationData from '../assets/anim/loader.json';
 export const Loading = props => {
   const defaultOptions = {
     loop: true,

@@ -41,7 +41,12 @@ class Header extends Component {
         >
           <div className="container no-pad">
             <NavbarBrand href="/" className="logo-header">
-              <img src={logo} height={30} className="d-inline-block align-top" alt="Logo"/>{' '}
+              <img
+                src={logo}
+                height={30}
+                className="d-inline-block align-top"
+                alt="Logo"
+              />{' '}
               <h5 className="slim-header d-inline-block">We Connect</h5>
             </NavbarBrand>
             <NavbarToggler onClick={this.toggle} />
@@ -73,7 +78,9 @@ class Header extends Component {
                       {auth.user.username}&nbsp;&nbsp;&nbsp;
                     </DropdownToggle>
                     <DropdownMenu right>
-                      <DropdownItem>Profile</DropdownItem>
+                      <DropdownItem>
+                        <Link to="/account">My account</Link>
+                      </DropdownItem>
                       <DropdownItem onClick={logout}>Logout</DropdownItem>
                     </DropdownMenu>
                   </UncontrolledDropdown>

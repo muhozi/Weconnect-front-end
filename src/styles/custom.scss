@@ -83,10 +83,6 @@ body {
   padding: 20px;
 }
 
-footer {
-  padding: 20px;
-}
-
 .review {
   border-bottom: 1px solid #eee;
   margin-bottom: 0.8rem;
@@ -124,7 +120,7 @@ footer {
   border-top: none;
 }
 
-.input-group > .form-control:not(:first-child) {
+.input-group>.form-control:not(:first-child) {
   border-left: 0;
 }
 
@@ -133,6 +129,7 @@ footer {
 }
 
 /* Make background color of auto complete textinput transparent */
+
 input:-webkit-autofill,
 textarea:-webkit-autofill,
 select:-webkit-autofill {
@@ -162,9 +159,10 @@ select:-webkit-autofill {
   text-shadow: -1px 0 #1f7a8c, 0 1px #1f7a8c, 1px 0 #1f7a8c, 0 -1px #1f7a8c;
 }
 
-.logo-header > h5 {
+.logo-header>h5 {
   color: #fff;
 }
+
 .logo {
   max-height: 120px;
 }
@@ -188,7 +186,7 @@ select:-webkit-autofill {
 
 .btn:not(:disabled):not(.disabled):active:focus,
 .btn:not(:disabled):not(.disabled).active:focus,
-.show > .btn.dropdown-toggle:focus {
+.show>.btn.dropdown-toggle:focus {
   box-shadow: none;
 }
 
@@ -237,8 +235,8 @@ button:focus {
   outline: none;
 }
 
-.pagination > li > a,
-.pagination > li > span {
+.pagination>li>a,
+.pagination>li>span {
   border-radius: 50%;
   margin: 0 5px;
 }
@@ -250,4 +248,63 @@ button:focus {
 
 .modal-title {
   font-weight: 300;
+}
+
+.v-slim-header {
+  font-weight: 200;
+}
+
+.heading {
+  padding-top: 30px;
+  padding-top: 30px;
+}
+
+.hr-divider {
+  background-color: rgba(31, 122, 140, 0.188);
+}
+
+.business-card {
+  border: 0;
+  border: 1px solid rgba(31, 122, 140, 0.188);
+  .card-body {
+    border-top: 1px solid rgba(31, 122, 140, 0.188);
+  }
+  .card-title {
+    color: #1f7b8e;
+  }
+  .hover-business-img {
+    // border: 1px solid rgba(31, 122, 140, 0.188);
+    width: 60%;
+  }
+}
+
+.holo-sec {
+  background-image: url('../assets/images/clients.jpg');
+  background-attachment: fixed;
+  min-height: 80vh;
+  background-blend-mode: overlay;
+  background-color: rgba(255, 255, 255, 0.72);
+  background-position: center;
+  background-size: 100%;
+  .testimonials {
+    background-color: rgba(31, 122, 140, 0.78);
+    padding: 10%;
+    border-radius: 4px;
+  }
+}
+
+.slimmy {
+  font-weight: 100;
+}
+
+.b-footer {
+  padding: 1%;
+  .f-logo {
+    width: 30px;
+    filter: grayscale(100%);
+  }
+}
+
+.footer-bg {
+  background-color: 'rgb(229, 230, 230)'
 }

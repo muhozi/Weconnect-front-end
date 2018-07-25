@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Router, Route, Switch } from 'react-router-dom';
 import history from '../config/history';
 import Businesses from './Businesses';
+import Home from './Home';
 import Login from './auth/Login';
 import Register from './auth/Register';
 import Account from './Account';
@@ -22,6 +23,7 @@ class Root extends Component {
       <Router history={history}>
         <Switch>
           <Route exact path="/login" component={Login} />
+          <Route exact path="/" component={Home} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/businesses" component={Businesses} />
           <Route path="/account" component={Account} />
