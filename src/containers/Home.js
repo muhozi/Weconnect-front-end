@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
-// import { Alert, Button, Card, CardHeader, CardBody } from 'reactstrap';
 import Lottie from 'react-lottie';
 import _ from 'lodash';
 import { getBusinesses } from '../actions/BusinessesActions';
@@ -13,7 +12,7 @@ import businessImg from '../assets/images/building.png';
 import connectAnimation from '../assets/anim/businesses-anim.json';
 
 /**
- *   Login Component
+ *   Home page Component
  */
 const SingleBusiness = props => {
   const business = props.business;
@@ -76,7 +75,6 @@ class Home extends Component {
     };
     const auth = this.props.auth;
     const businesses = this.props.businesses;
-    console.log(businesses);
     return (
       <Fragment>
         <Helmet>

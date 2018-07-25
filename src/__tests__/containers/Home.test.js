@@ -1,11 +1,16 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import { Home } from '../../containers/Home';
-import { configure } from 'enzyme';
+import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import { MemoryRouter } from 'react-router-dom';
+import { store } from '../../config';
+import Home from '../../containers/Home';
 
 configure({ adapter: new Adapter() });
 it('renders without crashing', () => {
-  const home = shallow(<Home />);
-  expect(home, 'home');
+  const wrapper = shallow(
+    <MemoryRouter keyLength={0}>
+      <Home store={store} />
+    </MemoryRouter>
+  ).dive();
+  expect(wrapper).toHaveLength(1);
 });

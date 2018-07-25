@@ -16,7 +16,7 @@ export function getBusinesses() {
   return dispatch => {
     dispatch({ type: GET_BUSINESSES });
     return request
-      .get('/businesses', {})
+      .get('/businesses')
       .then(response => {
         dispatch({
           type: GOT_BUSINESSES,

@@ -9,7 +9,6 @@ import {
   singleBusinessResponse,
   invalidBusinessResponse
 } from '../../mocks/ResponseMocks';
-// import { registerDataMocks, loginDataMocks } from '../../mocks/DataMocks';
 
 // Mock redux store
 const middleware = [thunk];
@@ -49,7 +48,7 @@ describe('Test businesses actions', () => {
       const req = moxios.requests.mostRecent();
       req.respondWith(invalidBusinessResponse);
     });
-    const expectedActions = ['GET_BUSINESS','BUSINESS_ERROR'];
+    const expectedActions = ['GET_BUSINESS', 'BUSINESS_ERROR'];
     const store = mockStore();
     return store.dispatch(getBusiness('business_id')).then(() => {
       const dispatchedActions = store.getActions();
@@ -58,5 +57,4 @@ describe('Test businesses actions', () => {
       done();
     });
   });
-
 });
