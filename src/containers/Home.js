@@ -47,9 +47,9 @@ const HoloSection = () => (
             <h2 className="slimmy text-light">
               <blockquote>
                 <i>
-                  {'"'} My clients doubled in a month after after doing their
-                  improving my services due to their reviews throught We
-                  Connect. This is incredible platform.
+                  {'"'} The number of my clients doubled in a month after
+                  improving my services from their reviews through WeConnect
+                  . This is an incredible platform.
                   {'"'}
                   <br />
                 </i>
@@ -97,18 +97,17 @@ class Home extends Component {
                   </h1>
                   <hr className="hr-divider" />
                   <h3 className="v-slim-header">
-                    We connect that brings businesses and individuals together.
+                    WeConnect  brings businesses and individuals together.
                   </h3>
                   <br />
-                  - Get your favorite businesses in one place<br />
+                  - Get your favorite businesses details in one place<br />
                   - Share what you think about businesses<br />
                   <br />
                   <h5 className="text-primary slim-header">
                     Do you own a business(es)?
                   </h5>
                   - Receive reviews from your clients<br />
-                  - Register your businesses for free<br />
-                  - Share your business informamation
+                  - Share with your clients your business address and details
                   <br />
                   <br />
                   <button className="btn btn-md btn-primary">
