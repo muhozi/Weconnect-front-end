@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import reducers from '../reducers';
 
 export const redux_env =
-  process.env.REACT_APP_REDUX_ENV === 'development'
+  process.env.REACT_APP_REDUX_DEVTOOL === 'true'
     ? window.__REDUX_DEVTOOLS_EXTENSION__ &&
       window.__REDUX_DEVTOOLS_EXTENSION__()
     : {};
