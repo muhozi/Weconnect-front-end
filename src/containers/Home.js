@@ -6,38 +6,15 @@ import { Link } from 'react-router-dom';
 import Lottie from 'react-lottie';
 import _ from 'lodash';
 import { getBusinesses } from '../actions/BusinessesActions';
+import { Loading } from '../components/Loaders';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import businessImg from '../assets/images/building.png';
+import BusinessCard from '../components/SingleBusinessCard';
 import connectAnimation from '../assets/anim/businesses-anim.json';
 
 /**
  *   Home page Component
  */
-const SingleBusiness = props => {
-  const business = props.business;
-  return (
-    <div className="col-md-3">
-      <div className="card business-card" style={{ marginTop: '40px' }}>
-        <Link to={"/business/"+business.id} className="text-center">
-          <img
-            src={businessImg}
-            alt="business-logo"
-            className="hover-business-img img-fluid m-auto"
-          />
-        </Link>
-        <Link to={"/business/" + business.id}>
-          <div className="card-body">
-            <h6 className="slim-header card-title">{business.name}</h6>
-            <p className="card-text text-muted">
-              <i className="icon ion-ios-pin" /> {business.city}
-            </p>
-          </div>
-        </Link>
-      </div>
-    </div>
-  );
-};
 const HoloSection = () => (
   <section className="holo-sec">
     <div className="container">
@@ -48,8 +25,8 @@ const HoloSection = () => (
               <blockquote>
                 <i>
                   {'"'} The number of my clients doubled in a month after
-                  improving my services from their reviews through WeConnect
-                  . This is an incredible platform.
+                  improving my services from their reviews through WeConnect .
+                  This is an incredible platform.
                   {'"'}
                   <br />
                 </i>
@@ -86,9 +63,7 @@ class Home extends Component {
         </Helmet>
         <div className="body">
           <Header />
-          <section
-            className="content home"
-          >
+          <section className="content home">
             <div className="container">
               <div className="row">
                 <div className="col-md-6">
@@ -97,7 +72,7 @@ class Home extends Component {
                   </h1>
                   <hr className="hr-divider" />
                   <h3 className="v-slim-header">
-                    WeConnect  brings businesses and individuals together.
+                    WeConnect brings businesses and individuals together.
                   </h3>
                   <br />
                   - Get your favorite businesses details in one place<br />
@@ -110,12 +85,15 @@ class Home extends Component {
                   - Share with your clients your business address and details
                   <br />
                   <br />
-                  <button className="btn btn-md btn-primary">
+                  <Link to="/businesses" className="btn btn-md btn-primary">
                     {'   '}
                     View businesses
-                  </button>{' '}
+                  </Link>{' '}
                   {!auth.logged_in === true && (
-                    <Link to="/login" className="btn btn-md btn-outline-primary">
+                    <Link
+                      to="/login"
+                      className="btn btn-md btn-outline-primary"
+                    >
                       {' '}
                       <i className="ion-ios-add-circle-outline" />
                       {'   '}
@@ -133,15 +111,15 @@ class Home extends Component {
             <div className="container">
               <div className="row heading">
                 <div className="col-md-12">
-                  <h2 className="v-slim-header text-center text-primary">
+                  <h3 className="v-slim-header text-center text-primary">
                     Recently added businesses<hr className="hr-divider" />
-                  </h2>
+                  </h3>
                 </div>
               </div>
             </div>
             <div className="container">
               {businesses.fetching ? (
-                <h1> Loading latest businesses </h1>
+                <Loading title="Loading recently added businesses" />
               ) : (
                 <Fragment>
                   <div className="row">
@@ -150,7 +128,7 @@ class Home extends Component {
                         {_
                           .take(businesses.businesses, 8)
                           .map(business => (
-                            <SingleBusiness
+                            <BusinessCard
                               key={business.id}
                               business={business}
                             />
@@ -196,22 +174,13 @@ const mapDispatchToProps = dispatch => ({
   dismissMessage: () => dispatch({ type: 'DISMISS_MESSAGE' })
 });
 Home.propTypes = {
-  /** Message reducer state  */
-  message: PropTypes.object,
   /** Auth reducer state  */
   auth: PropTypes.object,
-  /** Login action */
-  login: PropTypes.func,
-  /** Dismiss messages action  */
   dismissMessage: PropTypes.func,
   // Fetch businesses function
   getBusinesses: PropTypes.func,
   // Businesses
   businesses: PropTypes.object
-};
-SingleBusiness.propTypes = {
-  // Business details
-  business: PropTypes.object
 };
 export default connect(
   mapStateToProps,

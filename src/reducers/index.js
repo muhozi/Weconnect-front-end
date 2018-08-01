@@ -6,6 +6,7 @@ import myBusinesses from './UserBusinessesReducer';
 import businessMessage from './BusinessMsgReducer';
 import business from './BusinessReducer';
 import businessUpdateMsg from './BusinessUpdateReducer';
+import review from './ReviewsReducer';
 export default combineReducers({
   message,
   auth,
@@ -13,5 +14,6 @@ export default combineReducers({
   myBusinesses,
   business,
   businessMessage,
-  businessUpdateMsg
+  businessUpdateMsg,
+  review
 });

@@ -8,6 +8,7 @@ import { Loading } from '../components/Loaders';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { getBusiness } from '../actions/BusinessesActions';
+import { addReview } from '../actions/UserBusinessesActions';
 import userImg from '../assets/images/user.png';
 import businessImg from '../assets/images/building.png';
 import { MessageBox } from '../components';
@@ -16,7 +17,9 @@ import { MessageBox } from '../components';
 export class Business extends Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      review: ''
+    };
   }
 
   componentDidMount() {
@@ -26,14 +29,19 @@ export class Business extends Component {
 
   handleChange = e => {
     const value = {};
-    const edits = this.state.edits;
-    edits[e.target.name] = true;
-    value['edits'] = edits;
     value[e.target.name] = e.target.value;
     this.setState(value);
   };
-
-
+  addReview = e => {
+    e.preventDefault();
+    const data = {
+      business_id: this.props.business.details.id,
+      review: this.state.review
+    };
+    this.props.addReview(data).then(() => {
+      this.setState({ review: '' });
+    });
+  };
   render() {
     const { business, auth } = this.props;
     return (
@@ -79,9 +87,57 @@ export class Business extends Component {
                           })<br />
                           <br />
                         </h6>
+                        <Fragment>
+                          {auth.logged_in ? (
+                            <form onSubmit={this.addReview}>
+                              <div className="media review">
+                                <div className="mr-3">
+                                  <img
+                                    src={userImg}
+                                    style={{ height: '40px' }}
+                                    alt="User"
+                                  />
+                                </div>
+                                <div className="media-body">
+                                  <h6 className="mt-0 mb-1">{}</h6>
+                                  <div className="review-textarea-wrapper">
+                                    <textarea
+                                      name="review"
+                                      className="form-control review-textarea"
+                                      placeholder="Add your review about this business ..."
+                                      onChange={this.handleChange}
+                                      value={this.state.review}
+                                    />
+                                    <div className="text-right">
+                                      <button
+                                        type="submit"
+                                        className="btn btn-primary btn-sm rounded-circle send-review-btn"
+                                        disabled={
+                                          this.props.review.loading
+                                            ? true
+                                            : false
+                                        }
+                                      >
+                                        <i className="icon ion-md-send" />
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div>
+                                  <small />
+                                </div>
+                              </div>
+                            </form>
+                          ) : (
+                            <div>
+                              <h6 className="slimmy text-right text-muted">
+                                Log in to add a review
+                              </h6>
+                            </div>
+                          )}
+                        </Fragment>
                         {business.reviews.length > 0 ? (
                           <ul className="list-unstyled">
-                            <hr />
                             {business.reviews.map(review => (
                               <li key={review.id} className="media review">
                                 <div className="mr-3">
@@ -98,49 +154,17 @@ export class Business extends Component {
                                 <div>
                                   <small>
                                     {_.capitalize(
-                                      moment(review.created_at).fromNow()
+                                      moment(
+                                        review.created_at,
+                                        'ddd, DD MMM YYYY HH:mm:ss'
+                                      ).fromNow()
                                     )}
                                   </small>
                                 </div>
                               </li>
                             ))}
                           </ul>
-                        ) : (
-                          <span>
-                            {' '}
-                            {/* <i className="icon ion-ios-alert" />{' '} */}
-                            {/* {business.message} */}
-                            {auth.logged_in ? (
-                              <form>
-                                <div className="media review">
-                                  <div className="mr-3">
-                                    <img
-                                      src={userImg}
-                                      style={{ height: '40px' }}
-                                      alt="User"
-                                    />
-                                  </div>
-                                  <div className="media-body">
-                                    <h6 className="mt-0 mb-1">{}</h6>
-                                    <textarea
-                                      className="form-control"
-                                      placeholeder="Add your review about this business ..."
-                                    />
-                                  </div>
-                                  <div>
-                                    <small />
-                                  </div>
-                                </div>
-                              </form>
-                            ) : (
-                              <div>
-                                <h4 className="slimmy">
-                                  Loggin to add a review
-                                </h4>
-                              </div>
-                            )}
-                          </span>
-                        )}
+                        ) : null}
                       </Fragment>
                     ) : (
                       <MessageBox message={business.message} state="danger" />
@@ -162,11 +186,13 @@ export class Business extends Component {
 const mapStateToProps = state => ({
   business: state.business,
   auth: state.auth,
+  review: state.review,
   message: state.businessUpdateMsg
 });
 
 const mapDispatchToProps = dispatch => ({
   getBusiness: business_id => dispatch(getBusiness(business_id)),
+  addReview: data => dispatch(addReview(data)),
   dismissMessage: (error = true) => {
     if (error) {
       return dispatch({ type: 'DISMISS_UPDATE_BUSINESS_MESSAGE' });
@@ -183,7 +209,9 @@ Business.propTypes = {
   business: PropTypes.object,
   message: PropTypes.object,
   auth: PropTypes.object,
-  dismissMessage: PropTypes.func
+  dismissMessage: PropTypes.func,
+  addReview: PropTypes.func,
+  review: PropTypes.object
 };
 export default connect(
   mapStateToProps,

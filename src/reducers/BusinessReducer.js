@@ -3,7 +3,8 @@ import {
   GOT_BUSINESS,
   BUSINESS_ERROR,
   DELETING_BUSINESS,
-  BUSINESS_DELETED
+  BUSINESS_DELETED,
+  ADDED_REVIEW
 } from '../actions/Constants';
 
 const initialState = {
@@ -14,7 +15,7 @@ const initialState = {
   reviews: [],
   fetching: true,
   message: 'Getting business',
-  deleting: false,
+  deleting: false
 };
 /**
  * Businesses reducers
@@ -53,6 +54,11 @@ export default function BusinessReducer(state = initialState, action) {
         reviews: [],
         fetching: false,
         message: action.message
+      };
+    case ADDED_REVIEW:
+      return {
+        ...state,
+        reviews: [action.data,...state.reviews]
       };
     case DELETING_BUSINESS:
       return {

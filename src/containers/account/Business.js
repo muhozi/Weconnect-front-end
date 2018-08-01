@@ -152,7 +152,12 @@ export class Business extends Component {
                         </div>
                         <div>
                           <small>
-                            {_.capitalize(moment(review.created_at).fromNow())}
+                            {_.capitalize(
+                              moment(
+                                review.created_at,
+                                'ddd, DD MMM YYYY HH:mm:ss'
+                              ).fromNow()
+                            )}
                           </small>
                         </div>
                       </li>
