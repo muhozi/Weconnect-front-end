@@ -4,7 +4,10 @@ import {
   BUSINESSES_ERROR,
   GOT_BUSINESS,
   GET_BUSINESS,
-  BUSINESS_ERROR
+  BUSINESS_ERROR,
+  SEARCH_BUSINESS,
+  SEARCH_BUSINESS_RESULT,
+  SEARCH_BUSINESS_ERROR
 } from './Constants';
 import { network_error } from './index';
 import { request } from '../config';
@@ -34,8 +37,8 @@ export function getBusinesses() {
   };
 }
 /**
- * 
- * @param {string} business_id 
+ *
+ * @param {string} business_id
  */
 export function getBusiness(business_id) {
   return dispatch => {
@@ -52,6 +55,33 @@ export function getBusiness(business_id) {
         let resp = dispatch(network_error(error));
         return dispatch({
           type: BUSINESS_ERROR,
+          errors: resp.errors,
+          message: resp.message
+        });
+      });
+  };
+}
+
+/**
+ *
+ * @param {string} query
+ */
+export function searchBusiness(query) {
+  return dispatch => {
+    dispatch({ type: SEARCH_BUSINESS });
+    return request
+      .get('/businesses?q=' + query)
+      .then(response => {
+        console.log(response.data);
+        dispatch({
+          type: SEARCH_BUSINESS_RESULT,
+          data: response.data
+        });
+      })
+      .catch(error => {
+        let resp = dispatch(network_error(error));
+        return dispatch({
+          type: SEARCH_BUSINESS_ERROR,
           errors: resp.errors,
           message: resp.message
         });
