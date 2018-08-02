@@ -2,6 +2,8 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
+import _ from 'lodash';
+import { Link } from 'react-router-dom';
 import { getBusinesses } from '../actions/BusinessesActions';
 import { Loading, Warning } from '../components/Loaders';
 import Header from '../components/Header';
@@ -15,7 +17,8 @@ import BusinessCard from '../components/SingleBusinessCard';
 class Businesses extends Component {
   componentDidMount() {
     this.props.dismissMessage();
-    this.props.getBusinesses();
+    const page = this.props.match.params.page;
+    this.props.getBusinesses(page);
   }
   render() {
     const businesses = this.props.businesses;
@@ -38,7 +41,7 @@ class Businesses extends Component {
             </div>
             <div className="container">
               {businesses.fetching ? (
-                <Loading title="Loading recently added businesses" />
+                <Loading title={businesses.message} />
               ) : (
                 <Fragment>
                   <div className="row justify-content-center">
@@ -47,6 +50,89 @@ class Businesses extends Component {
                         {businesses.businesses.map(business => (
                           <BusinessCard key={business.id} business={business} />
                         ))}
+                        <div className="divided">
+                          {(businesses.previous_page ||
+                            businesses.next_page) && (
+                            <ul
+                              aria-label="Business Pagination"
+                              className="justify-content-center pagination"
+                            >
+                              {businesses.previous_page && (
+                                <li className="page-item">
+                                  <Link
+                                    to={{
+                                      pathname:
+                                        '/businesses/page/' +
+                                        businesses.previous_page
+                                    }}
+                                    onClick={() =>
+                                      this.props.getBusinesses(
+                                        businesses.previous_page
+                                      )
+                                    }
+                                    className="page-link"
+                                  >
+                                    <i className="icon ion-md-arrow-back" />
+                                    <span className="sr-only">Previous</span>
+                                  </Link>
+                                </li>
+                              )}
+                              {_
+                                .range(1, businesses.pages + 1)
+                                .map((value, key) => (
+                                  <Fragment key={key}>
+                                    {key >= businesses.current_page - 4 &&
+                                      key < businesses.current_page + 3 && (
+                                      <li
+                                        className={
+                                          value === businesses.current_page
+                                            ? 'page-item active'
+                                            : 'page-item'
+                                        }
+                                      >
+                                        <Link
+                                          to={{
+                                            pathname:
+                                                '/businesses/page/' +
+                                                value
+                                          }}
+                                          onClick={() =>
+                                            this.props.getBusinesses(value)
+                                          }
+                                          className="page-link"
+                                        >
+                                          {value}
+                                        </Link>
+                                      </li>
+                                    )}
+                                  </Fragment>
+                                ))}
+
+                              {businesses.next_page && (
+                                <li className="page-item">
+                                  <Link
+                                    to={{
+                                      pathname:
+                                        '/businesses/page/' +
+                                        businesses.next_page
+                                    }}
+                                    onClick={() =>
+                                      this.props.getBusinesses(
+                                        businesses.next_page
+                                      )
+                                    }
+                                    className="page-link"
+                                  >
+                                    <span aria-hidden="true">
+                                      <i className="icon ion-md-arrow-forward" />
+                                    </span>
+                                    <span className="sr-only">Next</span>
+                                  </Link>
+                                </li>
+                              )}
+                            </ul>
+                          )}
+                        </div>
                       </Fragment>
                     ) : (
                       <Warning title={businesses.message} />
@@ -72,7 +158,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getBusinesses: () => dispatch(getBusinesses()),
+  getBusinesses: page => dispatch(getBusinesses(page)),
   dismissMessage: () => dispatch({ type: 'DISMISS_MESSAGE' })
 });
 Businesses.propTypes = {
@@ -82,7 +168,8 @@ Businesses.propTypes = {
   // Fetch businesses function
   getBusinesses: PropTypes.func,
   // Businesses
-  businesses: PropTypes.object
+  businesses: PropTypes.object,
+  match: PropTypes.object
 };
 export default connect(
   mapStateToProps,

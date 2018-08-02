@@ -13,7 +13,10 @@ import userImg from '../assets/images/user.png';
 import businessImg from '../assets/images/building.png';
 import { MessageBox } from '../components';
 
-/** Business details component */
+/**
+ * Registered business component
+ * This component render business details
+ */
 export class Business extends Component {
   constructor() {
     super();
@@ -75,8 +78,12 @@ export class Business extends Component {
                           </h2>
                         </div>
                         <span className="text-muted">
-                          <i className="icon ion-ios-pin" />{' '}
-                          {business.details.city} - {business.details.country}
+                          <small>
+                            <i className="icon ion-ios-pin" />{' '}
+                            {business.details.city} - {business.details.country}
+                            <br />
+                            <i>{business.details.category}</i>
+                          </small>
                           <br />
                           <br />
                         </span>

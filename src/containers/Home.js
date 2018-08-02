@@ -133,9 +133,7 @@ class Home extends Component {
                               business={business}
                             />
                           ))}
-                        <br />
-                        <br />
-                        <div className="row justify-content-center">
+                        <div className="row justify-content-center divided">
                           <div className="col-md-12 text-center">
                             <Link
                               to="/businesses"

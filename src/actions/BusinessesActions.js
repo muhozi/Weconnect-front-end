@@ -15,11 +15,11 @@ import { request } from '../config';
 /**
  * Fetch businesses
  */
-export function getBusinesses() {
+export const  getBusinesses = page => {
   return dispatch => {
     dispatch({ type: GET_BUSINESSES });
     return request
-      .get('/businesses')
+      .get('/businesses', { params: { page: page } })
       .then(response => {
         dispatch({
           type: GOT_BUSINESSES,
@@ -35,7 +35,7 @@ export function getBusinesses() {
         });
       });
   };
-}
+};
 /**
  *
  * @param {string} business_id
@@ -72,7 +72,6 @@ export function searchBusiness(query) {
     return request
       .get('/businesses?q=' + query)
       .then(response => {
-        console.log(response.data);
         dispatch({
           type: SEARCH_BUSINESS_RESULT,
           data: response.data

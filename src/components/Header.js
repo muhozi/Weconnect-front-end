@@ -38,7 +38,7 @@ class Header extends Component {
     const query = e.target.value;
     value[e.target.name] = query;
     this.setState(value);
-    this.props.searchBusiness(query);
+    this.props.searchBusiness(query.trim());
   };
   render() {
     const { auth, logout, businessesResult } = this.props;

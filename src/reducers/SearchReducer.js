@@ -32,7 +32,12 @@ export default function SearchReducer(state = initialState, action) {
         error: false,
         businesses: action.data.businesses || [],
         fetching: false,
-        message: action.data.message
+        message: action.data.message,
+        next_page: action.data.next_page || null,
+        previous_page: action.data.previous_page || null,
+        current_page: action.data.current_page || null,
+        pages: action.data.pages || null,
+        total_businesses: action.data.total_businesses || null
       };
     case SEARCH_BUSINESS_ERROR:
       return {

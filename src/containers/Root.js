@@ -42,6 +42,7 @@ class Root extends Component {
           />
           <Route exact path="/business/:id" component={Business} />
           <Route exact path="/businesses" component={Businesses} />
+          <Route exact path="/businesses/page/:page" component={Businesses} />
           <Route path="/account" component={Account} />
           <Route component={NotFound} />
         </Switch>
