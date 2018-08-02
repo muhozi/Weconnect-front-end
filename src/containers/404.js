@@ -33,7 +33,7 @@ export const NotFound = () => {
             <div className="row">
               <div className="col-md-6 m-auto">
                 <h2 className="text-danger v-slim-header">
-                  Sorry, age you are looking for was not found! <br />
+                  Sorry, Page you are looking for was not found! <br />
                 </h2>
                 <br />
                 <div>

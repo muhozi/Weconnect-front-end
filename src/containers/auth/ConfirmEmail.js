@@ -6,19 +6,18 @@ import { Link, Redirect } from 'react-router-dom';
 import { Alert, Button, Card, CardHeader, CardBody } from 'reactstrap';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
-import { login } from '../../actions/AuthActions';
+import { confirmEmail } from '../../actions/AuthActions';
 import { Error, InputGroup } from '../../components';
 import logo from '../../assets/images/logo-white.png';
 
 /**
- *   Login Component
+ *   Confirm email Component
  */
-class Login extends Component {
+class ConfirmEmail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      password: ''
+      email: ''
     };
   }
   /** Handle input value through state */
@@ -27,23 +26,28 @@ class Login extends Component {
     value[e.target.name] = e.target.value;
     this.setState(value);
   };
-  /** Login function */
-  login = e => {
+  /** Confirm email function */
+  confirmEmail = e => {
     e.preventDefault();
-    this.props.login(this.state);
+    this.props.confirmEmail(this.state);
     if (this.props.message.register_success) {
       this.setState({
-        username: '',
-        email: ''
+        email: '',
+        password: '',
+        confirm_password: ''
       });
     }
   };
+  componentDidMount() {
+    const token = this.props.match.params.token;
+    this.setState({ token });
+  }
   render() {
     return (
       <Fragment>
         {this.props.auth.logged_in === true ? <Redirect to="/account" /> : null}
         <Helmet>
-          <title>Login - We Connect</title>
+          <title>Reset password - We Connect</title>
         </Helmet>
         <div className="body-img">
           <Header />
@@ -62,9 +66,14 @@ class Login extends Component {
                 </div>
                 <div className="col-md-6 no-padding">
                   <Card className="card-form">
-                    <CardHeader className="text-center">Login</CardHeader>
+                    <CardHeader className="text-center">
+                      Confirm email<br />
+                      <small className="text-muted">
+                        Enter your email to confirm it
+                      </small>
+                    </CardHeader>
                     <CardBody>
-                      <form method="POST" onSubmit={this.login}>
+                      <form method="POST" onSubmit={this.confirmEmail}>
                         {this.props.message.message ? (
                           <div className="form-group row justify-content-center">
                             <div className="col-md-9">
@@ -87,37 +96,23 @@ class Login extends Component {
                         ) : null}
                         <div className="form-group row justify-content-center">
                           <InputGroup
-                            onChange={this.handleChange}
+                            type="text"
                             name="email"
-                            placeholder="Email ..."
-                            icon="icon ion-ios-mail"
+                            onChange={this.handleChange}
                             value={this.state.email}
+                            placeholder="Email..."
                             autoComplete="off"
+                            icon="icon ion-ios-mail"
                           />
                           <Error
                             errors={this.props.message.errors}
                             name="email"
-                          />
-                        </div>
-                        <div className="form-group row justify-content-center">
-                          <InputGroup
-                            type="password"
-                            name="password"
-                            placeholder="Password ..."
-                            onChange={this.handleChange}
-                            icon="icon ion-ios-unlock"
-                            value={this.state.password}
-                            autoComplete="off"
-                          />
-                          <Error
-                            errors={this.props.message.errors}
-                            name="password"
                           />
                         </div>
                         <div className="form-group row justify-content-center">
                           <div className="col-md-9">
                             <Button color="primary" block size="sm">
-                              Login
+                              Confirm email
                             </Button>
                           </div>
                         </div>
@@ -125,18 +120,11 @@ class Login extends Component {
                     </CardBody>
                     <div className="card-body text-center">
                       <Link
-                        to="/register"
+                        to="/login"
                         className="text-primary"
                         onClick={() => this.props.dismissMessage()}
                       >
-                        Create an account
-                      </Link><br/>
-                      <span className="text-muted">Forget Password?</span> <Link
-                        to="/auth/reset"
-                        className="text-primary"
-                        onClick={() => this.props.dismissMessage()}
-                      >
-                        Reset Password
+                        Login
                       </Link>
                     </div>
                   </Card>
@@ -157,21 +145,22 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  login: data => dispatch(login(data)),
+  confirmEmail: data => dispatch(confirmEmail(data)),
   dismissMessage: () => dispatch({ type: 'DISMISS_MESSAGE' })
 });
-Login.propTypes = {
+ConfirmEmail.propTypes = {
   /** Message reducer state  */
   message: PropTypes.object,
   /** Auth reducer state  */
   auth: PropTypes.object,
-  /** Login action */
-  login: PropTypes.func,
+  /** Change password password action */
+  confirmEmail: PropTypes.func,
   /** Dismiss messages action  */
-  dismissMessage: PropTypes.func
+  dismissMessage: PropTypes.func,
+  match: PropTypes.object
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Login);
+)(ConfirmEmail);

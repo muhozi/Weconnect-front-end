@@ -1,4 +1,5 @@
 export const LOGIN = 'LOGIN';
+export const RESET_SUCCESS = 'RESET_SUCCESS';
 export const SUCCESS_LOGIN = 'SUCCESS_LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const SUCCESS = 'SUCCESS';

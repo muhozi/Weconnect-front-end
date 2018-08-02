@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { getBusinesses } from '../actions/BusinessesActions';
-import { Loading } from '../components/Loaders';
+import { Loading, Warning } from '../components/Loaders';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import BusinessCard from '../components/SingleBusinessCard';
@@ -41,21 +41,15 @@ class Businesses extends Component {
                 <Loading title="Loading recently added businesses" />
               ) : (
                 <Fragment>
-                  <div className="row">
+                  <div className="row justify-content-center">
                     {businesses.success ? (
                       <Fragment>
-                        {businesses.businesses
-                          .map(business => (
-                            <BusinessCard
-                              key={business.id}
-                              business={business}
-                            />
-                          ))}
+                        {businesses.businesses.map(business => (
+                          <BusinessCard key={business.id} business={business} />
+                        ))}
                       </Fragment>
                     ) : (
-                      <h1 className="text-danger text-center">
-                        Something went wrong
-                      </h1>
+                      <Warning title={businesses.message} />
                     )}
                   </div>
                   <br />

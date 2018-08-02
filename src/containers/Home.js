@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import Lottie from 'react-lottie';
 import _ from 'lodash';
 import { getBusinesses } from '../actions/BusinessesActions';
-import { Loading } from '../components/Loaders';
+import { Loading, Warning } from '../components/Loaders';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import BusinessCard from '../components/SingleBusinessCard';
@@ -122,7 +122,7 @@ class Home extends Component {
                 <Loading title="Loading recently added businesses" />
               ) : (
                 <Fragment>
-                  <div className="row">
+                  <div className="row justify-content-center">
                     {businesses.success ? (
                       <Fragment>
                         {_
@@ -133,21 +133,22 @@ class Home extends Component {
                               business={business}
                             />
                           ))}
+                        <br />
+                        <br />
+                        <div className="row justify-content-center">
+                          <div className="col-md-12 text-center">
+                            <Link
+                              to="/businesses"
+                              className="btn btn-primary btn-lg"
+                            >
+                              Browse more businesses
+                            </Link>
+                          </div>
+                        </div>
                       </Fragment>
                     ) : (
-                      <h1 className="text-danger text-center">
-                        Something went wrong
-                      </h1>
+                      <Warning title={businesses.message} />
                     )}
-                  </div>
-                  <br />
-                  <br />
-                  <div className="row justify-content-center">
-                    <div className="col-md-12 text-center">
-                      <Link to="/businesses" className="btn btn-primary btn-lg">
-                        Browse more businesses
-                      </Link>
-                    </div>
                   </div>
                   <br />
                   <br />

@@ -39,9 +39,9 @@ export default function BusinessesReducer(state = initialState, action) {
         ...state,
         success: false,
         error: true,
-        businesses: action.data.businesses,
+        businesses: [],
         fetching: false,
-        message: action.data.message
+        message: action.message
       };
     default:
       return state;

@@ -12,13 +12,43 @@ export const Loading = props => {
     }
   };
   return (
-    <div style={{minHeight: '60vh',display: 'flex',alignItems: 'center',justifyContent: 'center'}} className="text-center">
+    <div
+      style={{
+        minHeight: '60vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}
+      className="text-center"
+    >
       <h3 className="slimmy text-muted text-center">
         <Lottie options={defaultOptions} height={100} width={100} />
         {props.title}
       </h3>
     </div>
   );
+};
+export const Warning = props => {
+  return (
+    <div
+      style={{
+        minHeight: '60vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}
+      className="text-center"
+    >
+      <h3 className="slimmy text-center text-danger">
+        <i className='icon ion-md-warning'/><br/>
+        {props.title}
+      </h3>
+    </div>
+  );
+};
+
+Warning.propTypes = {
+  title: PropTypes.string
 };
 
 Loading.propTypes = {
