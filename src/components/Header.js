@@ -14,18 +14,38 @@ import {
   DropdownItem
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import _ from 'lodash';
 import { Loading, Warning } from '../components/Loaders';
 import BusinessCard from '../components/SingleBusinessCard';
 import { logout } from '../actions/AuthActions';
 import { searchBusiness } from '../actions/BusinessesActions';
 import logo from '../assets/images/logo.png';
 
+const CheckBox = props => (
+  <div className="custom-control custom-checkbox custom-control-inline">
+    <input
+      type="checkbox"
+      id={props.name + 'Id'}
+      name={props.name}
+      className="custom-control-input"
+      {...props}
+    />
+    <label className="custom-control-label" htmlFor={props.name + 'Id'}>
+      <small>{_.capitalize(props.name)}</small>
+    </label>
+  </div>
+);
 class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isOpen: false,
-      search: ''
+      search: '',
+      allSearch: true,
+      name: true,
+      category: true,
+      city: true,
+      country: true
     };
   }
   toggle = () => {
@@ -33,12 +53,45 @@ class Header extends Component {
       isOpen: !this.state.isOpen
     });
   };
+  searchFilters = () => {
+    return {
+      allSearch: this.state.allSearch,
+      name: this.state.name,
+      category: this.state.category,
+      city: this.state.city,
+      country: this.state.country
+    };
+  };
   handleChange = e => {
-    const value = {};
-    const query = e.target.value;
-    value[e.target.name] = query;
+    const value = this.state;
+    value[e.target.name] =
+      e.target.type === 'checkbox'
+        ? !this.state[e.target.name]
+        : e.target.value;
     this.setState(value);
-    this.props.searchBusiness(query.trim());
+    if (
+      value.name &&
+      value.category &&
+      value.city &&
+      value.country
+    ) {
+      this.setState({ allSearch: true });
+    } else {
+      this.setState({ allSearch: false });
+    }
+    this.props.searchBusiness(this.state.search.trim(), this.searchFilters());
+  };
+  handleCheckChange = e => {
+    const value = this.state;
+    value['allSearch'] = !this.state.allSearch;
+    if (value.allSearch){
+      value['name'] = value.allSearch;
+      value['category'] = value.allSearch;
+      value['country'] = value.allSearch;
+      value['city'] = value.allSearch;
+    }
+    this.setState(value);
+    this.props.searchBusiness(this.state.search.trim(), this.searchFilters());
   };
   render() {
     const { auth, logout, businessesResult } = this.props;
@@ -123,11 +176,35 @@ class Header extends Component {
         </Navbar>
         {this.state.search && (
           <section className="search-result">
-            <div
-              className="container"
-              style={{ backgroundColor: 'rgba(255,255,255,0.6)' }}
-            >
+            <div className="container search-container">
               <div className="row">
+                {/* <div className="col-md-12 text-dark text-right no-padding search-filters">
+                  <CheckBox
+                    name="all"
+                    checked={this.state.allSearch}
+                    onChange={this.handleCheckChange}
+                  />
+                  <CheckBox
+                    name="name"
+                    checked={this.state.name}
+                    onChange={this.handleChange}
+                  />
+                  <CheckBox
+                    name="category"
+                    checked={this.state.category}
+                    onChange={this.handleChange}
+                  />
+                  <CheckBox
+                    name="country"
+                    checked={this.state.country}
+                    onChange={this.handleChange}
+                  />
+                  <CheckBox
+                    name="city"
+                    checked={this.state.city}
+                    onChange={this.handleChange}
+                  />
+                </div> */}
                 <div className="col-md-12 text-dark text-center">
                   Search for: {this.state.search}
                 </div>
@@ -135,11 +212,6 @@ class Header extends Component {
                   {businessesResult.message}
                 </div>
               </div>
-            </div>
-            <div
-              className="container"
-              style={{ backgroundColor: 'rgba(255,255,255,0.6)' }}
-            >
               {businessesResult.fetching ? (
                 <Loading title={businessesResult.message} />
               ) : (
@@ -173,13 +245,16 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(logout()),
-  searchBusiness: query => dispatch(searchBusiness(query))
+  searchBusiness: (query, filters) => dispatch(searchBusiness(query,filters))
 });
 Header.propTypes = {
   auth: PropTypes.object,
   logout: PropTypes.func,
   searchBusiness: PropTypes.func,
   businessesResult: PropTypes.object
+};
+CheckBox.propTypes = {
+  name: PropTypes.string
 };
 export default connect(
   mapStateToProps,

@@ -348,6 +348,16 @@ button:focus {
   background-color: rgba(0, 0, 0, 0.6);
 }
 
-.divided{
+.divided {
   padding-top: 60px;
+}
+
+.search-filters {
+  border-bottom: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 30px;
+}
+
+.search-container {
+  background-color: rgba(255, 255, 255, 0.6);
 }

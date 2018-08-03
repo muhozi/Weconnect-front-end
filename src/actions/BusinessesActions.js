@@ -15,7 +15,7 @@ import { request } from '../config';
 /**
  * Fetch businesses
  */
-export const  getBusinesses = page => {
+export const getBusinesses = page => {
   return dispatch => {
     dispatch({ type: GET_BUSINESSES });
     return request
@@ -64,13 +64,30 @@ export function getBusiness(business_id) {
 
 /**
  *
- * @param {string} query
+ * @param {string} query - Search query
+ * @param {object} filters - Filters
  */
-export function searchBusiness(query) {
+export function searchBusiness(query, filters) {
   return dispatch => {
+    const params = {};
+    if (filters.name) {
+      params['name'] = query;
+    }
+    if (filters.category) {
+      params['category'] = query;
+    }
+    if (filters.country) {
+      params['country'] = query;
+    }
+    if (filters.city) {
+      params['city'] = query;
+    }
+    if (filters.allSearch) {
+      params['searchAll'] = filters.allSearch;
+    }
     dispatch({ type: SEARCH_BUSINESS });
     return request
-      .get('/businesses?q=' + query)
+      .get('/businesses', { params })
       .then(response => {
         dispatch({
           type: SEARCH_BUSINESS_RESULT,
