@@ -178,7 +178,8 @@ class Header extends Component {
           <section className="search-result">
             <div className="container search-container">
               <div className="row">
-                {/* <div className="col-md-12 text-dark text-right no-padding search-filters">
+                <div className="col-md-12 text-dark text-right no-padding search-filters">
+                  <b className="filter-label"> Filter by </b>
                   <CheckBox
                     name="all"
                     checked={this.state.allSearch}
@@ -204,7 +205,7 @@ class Header extends Component {
                     checked={this.state.city}
                     onChange={this.handleChange}
                   />
-                </div> */}
+                </div>
                 <div className="col-md-12 text-dark text-center">
                   Search for: {this.state.search}
                 </div>

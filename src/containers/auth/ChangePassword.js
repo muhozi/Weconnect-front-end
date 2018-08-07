@@ -28,6 +28,9 @@ class ChangePassword extends Component {
     value[e.target.name] = e.target.value;
     this.setState(value);
   };
+  testMethod = e => {
+    console.log('Magic');
+  };
   /** Change password function */
   changePassword = e => {
     e.preventDefault();

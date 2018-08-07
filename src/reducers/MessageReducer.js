@@ -11,6 +11,7 @@ import {
 const initialState = {
   message: '',
   errors: {},
+  loading: false,
   success: false,
   error: false
 };
