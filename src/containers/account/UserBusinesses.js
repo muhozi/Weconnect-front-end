@@ -63,7 +63,6 @@ export class Businesses extends Component {
         <Helmet>
           <title>My Businesses - We Connect</title>
         </Helmet>
-        {/* <h1> My Businesses</h1> */}
         {this.props.message.message && (
           <div className="form-group row justify-content-center">
             <div className="col-md-8">

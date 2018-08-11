@@ -4,14 +4,12 @@ import {
   DISMISS_MESSAGE,
   REGISTER_SUCCESS,
   LOGIN_SUCCESS,
-  LOGOUT,
-  RESET_SUCCESS
+  LOGOUT
 } from '../actions/Constants';
 
 const initialState = {
   message: '',
   errors: {},
-  loading: false,
   success: false,
   error: false
 };
@@ -31,16 +29,6 @@ export default function MessageReducer(state = initialState, action) {
         message: action.message
       };
     case LOGIN_SUCCESS:
-      return {
-        ...state,
-        success: true,
-        error: false,
-        login_success: true,
-        errors: {},
-        loading: false,
-        message: action.message
-      };
-    case RESET_SUCCESS:
       return {
         ...state,
         success: true,

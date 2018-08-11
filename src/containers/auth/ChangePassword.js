@@ -6,19 +6,20 @@ import { Link, Redirect } from 'react-router-dom';
 import { Alert, Button, Card, CardHeader, CardBody } from 'reactstrap';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
-import { login } from '../../actions/AuthActions';
+import { changePassword } from '../../actions/AuthActions';
 import { Error, InputGroup } from '../../components';
 import logo from '../../assets/images/logo-white.png';
 
 /**
- *   Login Component
+ *   Change Password Component
  */
-class Login extends Component {
+class ChangePassword extends Component {
   constructor(props) {
     super(props);
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      confirm_password: ''
     };
   }
   /** Handle input value through state */
@@ -27,23 +28,31 @@ class Login extends Component {
     value[e.target.name] = e.target.value;
     this.setState(value);
   };
-  /** Login function */
-  login = e => {
+  testMethod = e => {
+    console.log('Magic');
+  };
+  /** Change password function */
+  changePassword = e => {
     e.preventDefault();
-    this.props.login(this.state);
+    this.props.changePassword(this.state);
     if (this.props.message.register_success) {
       this.setState({
-        username: '',
-        email: ''
+        email: '',
+        password: '',
+        confirm_password: ''
       });
     }
   };
+  componentDidMount() {
+    const token = this.props.match.params.token;
+    this.setState({ token });
+  }
   render() {
     return (
       <Fragment>
         {this.props.auth.logged_in === true ? <Redirect to="/account" /> : null}
         <Helmet>
-          <title>Login - We Connect</title>
+          <title>Reset password - We Connect</title>
         </Helmet>
         <div className="body-img">
           <Header />
@@ -62,9 +71,14 @@ class Login extends Component {
                 </div>
                 <div className="col-md-6 no-padding">
                   <Card className="card-form">
-                    <CardHeader className="text-center">Login</CardHeader>
+                    <CardHeader className="text-center">
+                      Reset password<br />
+                      <small className="text-muted">
+                        Enter your email and new password
+                      </small>
+                    </CardHeader>
                     <CardBody>
-                      <form method="POST" onSubmit={this.login}>
+                      <form method="POST" onSubmit={this.changePassword}>
                         {this.props.message.message ? (
                           <div className="form-group row justify-content-center">
                             <div className="col-md-9">
@@ -87,12 +101,13 @@ class Login extends Component {
                         ) : null}
                         <div className="form-group row justify-content-center">
                           <InputGroup
-                            onChange={this.handleChange}
+                            type="text"
                             name="email"
-                            placeholder="Email ..."
-                            icon="icon ion-ios-mail"
+                            onChange={this.handleChange}
                             value={this.state.email}
+                            placeholder="Email..."
                             autoComplete="off"
+                            icon="icon ion-ios-mail"
                           />
                           <Error
                             errors={this.props.message.errors}
@@ -103,11 +118,11 @@ class Login extends Component {
                           <InputGroup
                             type="password"
                             name="password"
-                            placeholder="Password ..."
                             onChange={this.handleChange}
-                            icon="icon ion-ios-unlock"
                             value={this.state.password}
+                            placeholder="Password..."
                             autoComplete="off"
+                            icon="icon ion-ios-unlock"
                           />
                           <Error
                             errors={this.props.message.errors}
@@ -115,9 +130,24 @@ class Login extends Component {
                           />
                         </div>
                         <div className="form-group row justify-content-center">
+                          <InputGroup
+                            type="password"
+                            name="confirm_password"
+                            onChange={this.handleChange}
+                            value={this.state.confirm_password}
+                            placeholder="Confirm password..."
+                            autoComplete="off"
+                            icon="icon ion-ios-unlock"
+                          />
+                          <Error
+                            errors={this.props.message.errors}
+                            name="confirm_password"
+                          />
+                        </div>
+                        <div className="form-group row justify-content-center">
                           <div className="col-md-9">
                             <Button color="primary" block size="sm">
-                              Login
+                              Reset password
                             </Button>
                           </div>
                         </div>
@@ -125,18 +155,11 @@ class Login extends Component {
                     </CardBody>
                     <div className="card-body text-center">
                       <Link
-                        to="/register"
+                        to="/login"
                         className="text-primary"
                         onClick={() => this.props.dismissMessage()}
                       >
-                        Create an account
-                      </Link><br/>
-                      <span className="text-muted">Forget Password?</span> <Link
-                        to="/auth/reset"
-                        className="text-primary"
-                        onClick={() => this.props.dismissMessage()}
-                      >
-                        Reset Password
+                        Login
                       </Link>
                     </div>
                   </Card>
@@ -157,21 +180,22 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  login: data => dispatch(login(data)),
+  changePassword: data => dispatch(changePassword(data)),
   dismissMessage: () => dispatch({ type: 'DISMISS_MESSAGE' })
 });
-Login.propTypes = {
+ChangePassword.propTypes = {
   /** Message reducer state  */
   message: PropTypes.object,
   /** Auth reducer state  */
   auth: PropTypes.object,
-  /** Login action */
-  login: PropTypes.func,
+  /** Change password password action */
+  changePassword: PropTypes.func,
   /** Dismiss messages action  */
-  dismissMessage: PropTypes.func
+  dismissMessage: PropTypes.func,
+  match: PropTypes.object
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Login);
+)(ChangePassword);

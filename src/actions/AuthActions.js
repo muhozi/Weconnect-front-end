@@ -6,7 +6,8 @@ import {
   CHECKING_TOKEN,
   LOGIN_SUCCESS,
   SUCCESS_TOKEN,
-  LOGOUT
+  LOGOUT,
+  RESET_SUCCESS
 } from './Constants';
 import { network_error } from '.';
 import { request, auth_request, removeToken } from '../config';
@@ -141,3 +142,100 @@ export function logout() {
       });
   };
 }
+
+/**
+ * Email address to reset password
+ * @param  {string} email
+ */
+export const reset = email => {
+  return dispatch => {
+    return request
+      .post('/auth/reset-password', { email })
+      .then(response => {
+        dispatch({
+          type: RESET_SUCCESS,
+          errors: [],
+          message:
+            response.data !== undefined
+              ? response.data.message
+              : 'Unknown response'
+        });
+      })
+      .catch(error => {
+        let resp = dispatch(network_error(error));
+        dispatch({
+          type: ERROR,
+          errors: resp.errors,
+          message: resp.message
+        });
+      });
+  };
+};
+
+/**
+ * Email address to reset password
+ * @param  {string} data
+ */
+export const changePassword = data => {
+  return dispatch => {
+    const params = {
+      email: data.email,
+      password: data.password,
+      confirm_password: data.confirm_password
+    };
+    return request
+      .post('/auth/reset-password/' + data.token, params)
+      .then(response => {
+        dispatch({
+          type: RESET_SUCCESS,
+          errors: [],
+          message:
+            response.data !== undefined
+              ? response.data.message
+              : 'Unknown response'
+        });
+        history.push('/login');
+      })
+      .catch(error => {
+        let resp = dispatch(network_error(error));
+        dispatch({
+          type: ERROR,
+          errors: resp.errors,
+          message: resp.message
+        });
+      });
+  };
+};
+
+/**
+ * Email address to reset password
+ * @param  {string} data
+ */
+export const confirmEmail = data => {
+  return dispatch => {
+    const params = {
+      email: data.email,
+    };
+    return request
+      .post('/auth/confirm/' + data.token, params)
+      .then(response => {
+        dispatch({
+          type: RESET_SUCCESS,
+          errors: [],
+          message:
+            response.data !== undefined
+              ? response.data.message
+              : 'Unknown response'
+        });
+        history.push('/login');
+      })
+      .catch(error => {
+        let resp = dispatch(network_error(error));
+        dispatch({
+          type: ERROR,
+          errors: resp.errors,
+          message: resp.message
+        });
+      });
+  };
+};

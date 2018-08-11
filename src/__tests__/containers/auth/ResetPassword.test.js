@@ -1,16 +1,16 @@
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
-import { shallow, configure } from 'enzyme';
+import { shallow, mount, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import Login from '../../../containers/auth/Login';
+import ResetPassword from '../../../containers/auth/ResetPassword';
 import { store } from '../../../config';
 
 configure({ adapter: new Adapter() });
 it('Render login component', () => {
   const wrapper = shallow(
     <MemoryRouter>
-      <Login store={store} />
+      <ResetPassword store={store} />
     </MemoryRouter>
-  ).dive();
-  expect(wrapper).toHaveLength(1);
+  );
+  expect(wrapper.dive()).toHaveLength(1);
 });

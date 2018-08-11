@@ -1,7 +1,7 @@
 import {
-  GET_BUSINESSES,
-  GOT_BUSINESSES,
-  BUSINESSES_ERROR
+  SEARCH_BUSINESS,
+  SEARCH_BUSINESS_RESULT,
+  SEARCH_BUSINESS_ERROR
 } from '../actions/Constants';
 
 const initialState = {
@@ -12,25 +12,25 @@ const initialState = {
   fetching: false
 };
 /**
- * Businesses reducers
+ * Search businesses reducer
  */
-export default function BusinessesReducer(state = initialState, action) {
+export default function SearchReducer(state = initialState, action) {
   switch (action.type) {
-    case GET_BUSINESSES:
+    case SEARCH_BUSINESS:
       return {
         ...state,
         success: false,
         error: false,
         businesses: [],
         fetching: true,
-        message: 'Loading businesses ...'
+        message: 'Searching businesses ...'
       };
-    case GOT_BUSINESSES:
+    case SEARCH_BUSINESS_RESULT:
       return {
         ...state,
         success: true,
         error: false,
-        businesses: action.data.businesses,
+        businesses: action.data.businesses || [],
         fetching: false,
         message: action.data.message,
         next_page: action.data.next_page || null,
@@ -39,7 +39,7 @@ export default function BusinessesReducer(state = initialState, action) {
         pages: action.data.pages || null,
         total_businesses: action.data.total_businesses || null
       };
-    case BUSINESSES_ERROR:
+    case SEARCH_BUSINESS_ERROR:
       return {
         ...state,
         success: false,

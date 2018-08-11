@@ -14,7 +14,11 @@ import {
   UPDATE_BUSINESS_ERROR,
   DISMISS_UPDATE_BUSINESS_MESSAGE,
   EDIT_BUSINESS,
-  CANCEL_EDIT_BUSINESS
+  CANCEL_EDIT_BUSINESS,
+  ADD_REVIEW,
+  ADD_REVIEW_FAIL,
+  ADD_REVIEW_SUCCESS,
+  ADDED_REVIEW
 } from './Constants';
 import { network_error } from './';
 import { auth_request } from '../config';
@@ -22,7 +26,7 @@ import { getBusiness } from './BusinessesActions';
 
 /**
  * Retrieve user businesses on certain page
- * @param {number} page 
+ * @param {number} page
  */
 export const getMyBusinesses = page => {
   return dispatch => {
@@ -48,7 +52,7 @@ export const getMyBusinesses = page => {
 
 /**
  * Delete business
- * @param {string} business_id 
+ * @param {string} business_id
  */
 export const deleteBusiness = business_id => {
   return dispatch => {
@@ -143,8 +147,44 @@ export function updateBusiness(data) {
 }
 
 /**
+ * Add business Review
+ * @param {data}
+ */
+export function addReview(data) {
+  return dispatch => {
+    const { review, business_id } = data;
+    dispatch({ type: ADD_REVIEW });
+    return auth_request()
+      .post('/businesses/' + business_id + '/reviews', {
+        review
+      })
+      .then(response => {
+        dispatch({
+          type: ADD_REVIEW_SUCCESS,
+          errors: [],
+          message:
+            response.data !== undefined
+              ? response.data.message
+              : 'Unknown response'
+        });
+        dispatch({
+          type: ADDED_REVIEW,
+          data: response.data.review
+        });
+      })
+      .catch(error => {
+        let resp = dispatch(network_error(error));
+        dispatch({
+          type: ADD_REVIEW_FAIL,
+          errors: resp.errors,
+          message: resp.message
+        });
+      });
+  };
+}
+/**
  * Switch the edit modal
- * @param {boolean} state 
+ * @param {boolean} state
  */
 export const editBusiness = state =>
   state ? { type: EDIT_BUSINESS } : { type: CANCEL_EDIT_BUSINESS };
