@@ -6,7 +6,7 @@ import ConfirmEmail from '../../../containers/auth/ConfirmEmail';
 import { store } from '../../../config';
 
 configure({ adapter: new Adapter() });
-it('Render login component', () => {
+it('Render confirm email component', () => {
   const wrapper = shallow(
     <MemoryRouter>
       <ConfirmEmail store={store} />

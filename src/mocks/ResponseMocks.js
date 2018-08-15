@@ -32,7 +32,11 @@ export const successLoginResponse = {
   response: {
     status: 'ok',
     message: 'You have been successfully logged in',
-    access_token: 'token.....'
+    access_token: 'fnsdjfnskjdfs',
+    user: {
+      username: 'emery',
+      email: 'emery@weconnect.com'
+    }
   }
 };
 
@@ -88,6 +92,17 @@ export const businessesResponse = {
 };
 
 /**
+ * Mock invalid businesses response data
+ */
+export const invalidBusinessesResponse = {
+  status: 400,
+  response: {
+    status: 'error',
+    message: 'Page not found'
+  }
+};
+
+/**
  * Mock single business response
  */
 export const singleBusinessResponse = {
@@ -132,6 +147,20 @@ export const businessRegistrationResponse = {
 };
 
 /**
+ * Mock invalid business registration response
+ */
+export const invalidBusinessRegisterResponse = {
+  status: 400,
+  response: {
+    status: 'error',
+    message: 'Please provide valid details',
+    errors: {
+      city: ['City is required']
+    }
+  }
+};
+
+/**
  * Mock business update response
  */
 export const businessUpdateResponse = {
@@ -147,8 +176,8 @@ export const businessUpdateResponse = {
 export const businessInvalidUpdateResponse = {
   status: 400,
   response: {
-    "status": "error",
-    "message": "This business doesn't exist or you don't have privileges to it"
+    status: 'error',
+    message: "This business doesn't exist or you don't have privileges to it"
   }
 };
 
@@ -172,4 +201,119 @@ export const businessDeleteInvalidResponse = {
     status: 'error',
     message: 'Business not found'
   }
+};
+
+/**
+ * Reset password response mock
+ */
+export const resetPasswordResponse = {
+  status: 201,
+  response: {
+    status: 'ok',
+    message: 'Check your email to reset password'
+  }
+};
+
+/**
+ * Invalid reset password response mock
+ */
+export const invalidResetPasswordResponse = {
+  status: 400,
+  response: {
+    status: 'error',
+    message: "Email doesn't exist"
+  }
+};
+
+/**
+ * Change password invalid response mock
+ */
+export const changePasswordResponse = {
+  status: 201,
+  response: {
+    status: 'ok',
+    message: 'Your email was confirmed successfully'
+  }
+};
+
+/**
+ * Change password invalid response mock
+ */
+export const invalidChangePasswordResponse = {
+  status: 400,
+  response: {
+    status: 'ok',
+    message: 'Your email was confirmed successfully'
+  }
+};
+
+/**
+ * Confirm email valid response mock
+ */
+export const confirmEmailResponse = {
+  status: 200,
+  response: {
+    status: 'ok',
+    message: 'Your email was confirmed successfully'
+  }
+};
+
+/**
+ * Confirm email invalid response mock
+ */
+export const invalidConfirmEmailResponse = {
+  status: 400,
+  response: {
+    status: 'error',
+    message: 'Invalid confirm link token or email'
+  }
+};
+/**
+ * Add review response mock
+ */
+export const addReviewResponse = {
+  status: 201,
+  response: {
+    status: 'ok',
+    message: 'Your review has been submitted'
+  }
+};
+/**
+ * Add review invalid response mock
+ */
+export const invalidAddReviewResponse = {
+  status: 400,
+  response: {
+    status: 'error',
+    message: "This business doesn't exist"
+  }
+};
+
+/**
+ * Unauthorized response mock
+ */
+export const unauthorizedResponse = {
+  response: {
+    status: 401,
+    statusText: 'UNAUTHORIZED',
+    data: {
+      status: 'error',
+      message: 'Unauthorized'
+    }
+  }
+};
+
+export const unauthorizedLoginResponse = {
+  response: {
+    status: 401,
+    statusText: 'UNAUTHORIZED',
+    data: {
+      status: 'error',
+      message: 'Invalid email or password'
+    }
+  }
+};
+
+export const networkErrorResponse = {
+  message: 'Network error'
 };

@@ -2,12 +2,17 @@ import moxios from 'moxios';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { request } from '../../config';
-import { getBusiness, getBusinesses } from '../../actions/BusinessesActions';
+import {
+  getBusiness,
+  getBusinesses,
+  searchBusiness
+} from '../../actions/BusinessesActions';
 
 import {
   businessesResponse,
   singleBusinessResponse,
-  invalidBusinessResponse
+  invalidBusinessResponse,
+  invalidBusinessesResponse
 } from '../../mocks/ResponseMocks';
 
 // Mock redux store
@@ -56,5 +61,61 @@ describe('Test businesses actions', () => {
       expect(actionTypes).toEqual(expectedActions);
       done();
     });
+  });
+  it('Test get single business action', done => {
+    moxios.wait(() => {
+      const req = moxios.requests.mostRecent();
+      req.respondWith(singleBusinessResponse);
+    });
+    const expectedActions = ['GET_BUSINESS', 'GOT_BUSINESS'];
+    const store = mockStore();
+    return store.dispatch(getBusiness('business_id')).then(() => {
+      const dispatchedActions = store.getActions();
+      const actionTypes = dispatchedActions.map(action => action.type);
+      expect(actionTypes).toEqual(expectedActions);
+      done();
+    });
+  });
+  it('Test search business action', done => {
+    moxios.wait(() => {
+      const req = moxios.requests.mostRecent();
+      req.respondWith(businessesResponse);
+    });
+    const expectedActions = ['SEARCH_BUSINESS', 'SEARCH_BUSINESS_RESULT'];
+    const store = mockStore();
+    return store
+      .dispatch(
+        searchBusiness('inzora', {
+          name: true,
+          country: true,
+          category: true,
+          city: true,
+          allSearch: true
+        })
+      )
+      .then(() => {
+        const dispatchedActions = store.getActions();
+        const actionTypes = dispatchedActions.map(action => action.type);
+        expect(actionTypes).toEqual(expectedActions);
+        done();
+      });
+  });
+  it('Test invalid search business action', done => {
+    moxios.wait(() => {
+      const req = moxios.requests.mostRecent();
+      req.respondWith(invalidBusinessesResponse);
+    });
+    const expectedActions = ['SEARCH_BUSINESS', 'SEARCH_BUSINESS_ERROR'];
+    const store = mockStore();
+    return store
+      .dispatch(
+        searchBusiness('inzora', {})
+      )
+      .then(() => {
+        const dispatchedActions = store.getActions();
+        const actionTypes = dispatchedActions.map(action => action.type);
+        expect(actionTypes).toEqual(expectedActions);
+        done();
+      });
   });
 });

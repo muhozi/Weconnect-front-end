@@ -6,7 +6,9 @@ import {
   getMyBusinesses,
   deleteBusiness,
   registerBusiness,
-  updateBusiness
+  updateBusiness,
+  addReview,
+  editBusiness
 } from '../../actions/UserBusinessesActions';
 import {
   businessesResponse,
@@ -16,7 +18,10 @@ import {
   businessUpdateResponse,
   businessInvalidUpdateResponse,
   businessDeleteResponse,
-  businessDeleteInvalidResponse
+  businessDeleteInvalidResponse,
+  addReviewResponse,
+  invalidAddReviewResponse,
+  invalidBusinessRegisterResponse
 } from '../../mocks/ResponseMocks';
 import { businessDataMocks } from '../../mocks/DataMocks';
 
@@ -49,7 +54,20 @@ describe('Test businesses actions', () => {
       done();
     });
   });
-
+  it('Test invalid businesses response handler action', done => {
+    moxios.wait(() => {
+      const req = moxios.requests.mostRecent();
+      req.respondWith(invalidBusinessResponse);
+    });
+    const expectedActions = ['GET_MY_BUSINESSES', 'MY_BUSINESSES_ERROR'];
+    const store = mockStore();
+    return store.dispatch(getMyBusinesses('business_id')).then(() => {
+      const dispatchedActions = store.getActions();
+      const actionTypes = dispatchedActions.map(action => action.type);
+      expect(actionTypes).toEqual(expectedActions);
+      done();
+    });
+  });
   /**
    * Test registering business action
    */
@@ -66,6 +84,27 @@ describe('Test businesses actions', () => {
       expect(actionTypes).toEqual(expectedActions);
       done();
     });
+  });
+  it('Fails to registers business', done => {
+    moxios.wait(() => {
+      const req = moxios.requests.mostRecent();
+      req.respondWith(invalidBusinessRegisterResponse);
+    });
+    const expectedActions = ['REGISTER_BUSINESS', 'REGISTER_BUSINESS_ERROR'];
+    const store = mockStore();
+    return store.dispatch(registerBusiness(businessDataMocks)).then(() => {
+      const dispatchedActions = store.getActions();
+      const actionTypes = dispatchedActions.map(action => action.type);
+      expect(actionTypes).toEqual(expectedActions);
+      done();
+    });
+  });
+
+  it('Switches edit action types', done => {
+    const expectedReturn = { type: 'EDIT_BUSINESS' };
+    const toReturn = editBusiness(true);
+    expect(expectedReturn).toEqual(toReturn);
+    done();
   });
 
   /**
@@ -143,5 +182,41 @@ describe('Test businesses actions', () => {
       expect(actionTypes).toEqual(expectedActions);
       done();
     });
+  });
+  it('Test add review', done => {
+    moxios.wait(() => {
+      const req = moxios.requests.mostRecent();
+      req.respondWith(addReviewResponse);
+    });
+    const expectedActions = [
+      'ADD_REVIEW',
+      'ADD_REVIEW_SUCCESS',
+      'ADDED_REVIEW'
+    ];
+    const store = mockStore();
+    return store
+      .dispatch(addReview({ business_id: 1, review: 'Nice' }))
+      .then(() => {
+        const dispatchedActions = store.getActions();
+        const actionTypes = dispatchedActions.map(action => action.type);
+        expect(actionTypes).toEqual(expectedActions);
+        done();
+      });
+  });
+  it('Test invalid add review', done => {
+    moxios.wait(() => {
+      const req = moxios.requests.mostRecent();
+      req.respondWith(invalidAddReviewResponse);
+    });
+    const expectedActions = ['ADD_REVIEW', 'ADD_REVIEW_FAIL'];
+    const store = mockStore();
+    return store
+      .dispatch(addReview({ business_id: 1, review: 'Nice' }))
+      .then(() => {
+        const dispatchedActions = store.getActions();
+        const actionTypes = dispatchedActions.map(action => action.type);
+        expect(actionTypes).toEqual(expectedActions);
+        done();
+      });
   });
 });
