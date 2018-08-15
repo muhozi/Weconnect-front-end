@@ -93,8 +93,7 @@ class Businesses extends Component {
                                         <Link
                                           to={{
                                             pathname:
-                                                '/businesses/page/' +
-                                                value
+                                                '/businesses/page/' + value
                                           }}
                                           onClick={() =>
                                             this.props.getBusinesses(value)
