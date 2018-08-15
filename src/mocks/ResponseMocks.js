@@ -92,6 +92,17 @@ export const businessesResponse = {
 };
 
 /**
+ * Mock invalid businesses response data
+ */
+export const invalidBusinessesResponse = {
+  status: 400,
+  response: {
+    "status": "error",
+    "message": "Page not found"
+  }
+};
+
+/**
  * Mock single business response
  */
 export const singleBusinessResponse = {
@@ -262,4 +273,33 @@ export const invalidAddReviewResponse = {
     status: 'error',
     message: "This business doesn't exist"
   }
+};
+
+/**
+ * Unauthorized response mock
+ */
+export const unauthorizedResponse = {
+  response: {
+    status: 401,
+    statusText: 'UNAUTHORIZED',
+    data: {
+      status: 'error',
+      message: 'Unauthorized'
+    }
+  }
+};
+
+export const unauthorizedLoginResponse = {
+  response: {
+    status: 401,
+    statusText: 'UNAUTHORIZED',
+    data: {
+      status: 'error',
+      message: 'Invalid email or password'
+    }
+  }
+};
+
+export const networkErrorResponse = {
+  message:'Network error'
 };
