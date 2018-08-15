@@ -80,34 +80,36 @@ export function login(data) {
 /**
  * Check token
  */
-export function checkToken(dispatch) {
-  dispatch({
-    type: CHECKING_TOKEN
-  });
-  try {
+export function checkToken() {
+  return dispatch => {
+    dispatch({
+      type: CHECKING_TOKEN
+    });
+    try {
+      let user = localStorage.getItem('auth_user');
+      JSON.parse(user);
+    } catch (error) {
+      removeToken();
+      return dispatch({
+        type: LOGOUT,
+        data: 'Invalid access token'
+      });
+    }
+    let token = localStorage.getItem('access_token');
+    let authenticated = localStorage.getItem('logged_in');
     let user = localStorage.getItem('auth_user');
-    JSON.parse(user);
-  } catch (error) {
-    removeToken();
-    return dispatch({
-      type: LOGOUT,
-      data: 'Invalid access token'
-    });
-  }
-  let token = localStorage.getItem('access_token');
-  let authenticated = localStorage.getItem('logged_in');
-  let user = localStorage.getItem('auth_user');
-  if (token !== null && authenticated === 'true' && user !== null) {
-    return dispatch({
-      type: SUCCESS_TOKEN,
-      data: { access_token: token, user: JSON.parse(user) }
-    });
-  } else {
-    localStorage.clear();
-    return dispatch({
-      type: NO_TOKEN
-    });
-  }
+    if (token !== null && authenticated && user !== null) {
+      return dispatch({
+        type: SUCCESS_TOKEN,
+        data: { access_token: token, user: JSON.parse(user) }
+      });
+    } else {
+      localStorage.clear();
+      return dispatch({
+        type: NO_TOKEN
+      });
+    }
+  };
 }
 
 /** Logout method */
@@ -214,7 +216,7 @@ export const changePassword = data => {
 export const confirmEmail = data => {
   return dispatch => {
     const params = {
-      email: data.email,
+      email: data.email
     };
     return request
       .post('/auth/confirm/' + data.token, params)

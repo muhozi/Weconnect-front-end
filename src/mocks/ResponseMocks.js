@@ -32,7 +32,11 @@ export const successLoginResponse = {
   response: {
     status: 'ok',
     message: 'You have been successfully logged in',
-    access_token: 'token.....'
+    access_token: 'fnsdjfnskjdfs',
+    user: {
+      username: 'emery',
+      email: 'emery@weconnect.com'
+    }
   }
 };
 
@@ -192,6 +196,50 @@ export const invalidResetPasswordResponse = {
   status: 400,
   response: {
     status: 'error',
-    message: 'Email doesn\'t exist'
+    message: "Email doesn't exist"
+  }
+};
+
+/**
+ * Change password invalid response mock
+ */
+export const changePasswordResponse = {
+  status: 201,
+  response: {
+    status: 'ok',
+    message: 'Your email was confirmed successfully'
+  }
+};
+
+/**
+ * Change password invalid response mock
+ */
+export const invalidChangePasswordResponse = {
+  status: 400,
+  response: {
+    status: 'ok',
+    message: 'Your email was confirmed successfully'
+  }
+};
+
+/**
+ * Confirm email valid response mock
+ */
+export const confirmEmailResponse = {
+  status: 200,
+  response: {
+    status: 'ok',
+    message: 'Your email was confirmed successfully'
+  }
+};
+
+/**
+ * Confirm email invalid response mock
+ */
+export const invalidConfirmEmailResponse = {
+  status: 400,
+  response: {
+    "status": "error",
+    "message": "Invalid confirm link token or email"
   }
 };

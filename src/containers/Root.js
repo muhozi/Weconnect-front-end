@@ -55,7 +55,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  checkToken: () => checkToken(dispatch)
+  checkToken: () => dispatch(checkToken())
 });
 Root.propTypes = {
   auth: PropTypes.object,
