@@ -239,7 +239,27 @@ export const confirmEmailResponse = {
 export const invalidConfirmEmailResponse = {
   status: 400,
   response: {
-    "status": "error",
-    "message": "Invalid confirm link token or email"
+    status: 'error',
+    message: 'Invalid confirm link token or email'
+  }
+};
+/**
+ * Add review response mock
+ */
+export const addReviewResponse = {
+  status: 201,
+  response: {
+    status: 'ok',
+    message: 'Your review has been submitted'
+  }
+};
+/**
+ * Add review invalid response mock
+ */
+export const invalidAddReviewResponse = {
+  status: 400,
+  response: {
+    status: 'error',
+    message: "This business doesn't exist"
   }
 };

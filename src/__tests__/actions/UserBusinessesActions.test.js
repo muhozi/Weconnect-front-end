@@ -6,7 +6,8 @@ import {
   getMyBusinesses,
   deleteBusiness,
   registerBusiness,
-  updateBusiness
+  updateBusiness,
+  addReview
 } from '../../actions/UserBusinessesActions';
 import {
   businessesResponse,
@@ -16,7 +17,9 @@ import {
   businessUpdateResponse,
   businessInvalidUpdateResponse,
   businessDeleteResponse,
-  businessDeleteInvalidResponse
+  businessDeleteInvalidResponse,
+  addReviewResponse,
+  invalidAddReviewResponse
 } from '../../mocks/ResponseMocks';
 import { businessDataMocks } from '../../mocks/DataMocks';
 
@@ -143,5 +146,41 @@ describe('Test businesses actions', () => {
       expect(actionTypes).toEqual(expectedActions);
       done();
     });
+  });
+  it('Test add review', done => {
+    moxios.wait(() => {
+      const req = moxios.requests.mostRecent();
+      req.respondWith(addReviewResponse);
+    });
+    const expectedActions = [
+      'ADD_REVIEW',
+      'ADD_REVIEW_SUCCESS',
+      'ADDED_REVIEW'
+    ];
+    const store = mockStore();
+    return store
+      .dispatch(addReview({ business_id: 1, review: 'Nice' }))
+      .then(() => {
+        const dispatchedActions = store.getActions();
+        const actionTypes = dispatchedActions.map(action => action.type);
+        expect(actionTypes).toEqual(expectedActions);
+        done();
+      });
+  });
+  it('Test invalid add review', done => {
+    moxios.wait(() => {
+      const req = moxios.requests.mostRecent();
+      req.respondWith(invalidAddReviewResponse);
+    });
+    const expectedActions = ['ADD_REVIEW', 'ADD_REVIEW_FAIL'];
+    const store = mockStore();
+    return store
+      .dispatch(addReview({ business_id: 1, review: 'Nice' }))
+      .then(() => {
+        const dispatchedActions = store.getActions();
+        const actionTypes = dispatchedActions.map(action => action.type);
+        expect(actionTypes).toEqual(expectedActions);
+        done();
+      });
   });
 });
