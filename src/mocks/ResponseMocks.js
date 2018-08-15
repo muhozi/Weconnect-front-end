@@ -97,8 +97,8 @@ export const businessesResponse = {
 export const invalidBusinessesResponse = {
   status: 400,
   response: {
-    "status": "error",
-    "message": "Page not found"
+    status: 'error',
+    message: 'Page not found'
   }
 };
 
@@ -143,6 +143,20 @@ export const businessRegistrationResponse = {
   response: {
     status: 'ok',
     message: 'Your business has been successfully registered'
+  }
+};
+
+/**
+ * Mock invalid business registration response
+ */
+export const invalidBusinessRegisterResponse = {
+  status: 400,
+  response: {
+    status: 'error',
+    message: 'Please provide valid details',
+    errors: {
+      city: ['City is required']
+    }
   }
 };
 
@@ -301,5 +315,5 @@ export const unauthorizedLoginResponse = {
 };
 
 export const networkErrorResponse = {
-  message:'Network error'
+  message: 'Network error'
 };
