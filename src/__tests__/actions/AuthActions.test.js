@@ -2,13 +2,15 @@ import moxios from 'moxios';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { api_url, request, auth_request } from '../../config';
-import { register, login, logout } from '../../actions/AuthActions';
+import { register, login, logout, reset } from '../../actions/AuthActions';
 import {
   successRegisterResponse,
   registerFailResponse,
   successLoginResponse,
   loginFailResponse,
-  logoutResponse
+  logoutResponse,
+  resetPasswordResponse,
+  invalidResetPasswordResponse
 } from '../../mocks/ResponseMocks';
 import { registerDataMocks, loginDataMocks } from '../../mocks/DataMocks';
 
@@ -16,7 +18,7 @@ import { registerDataMocks, loginDataMocks } from '../../mocks/DataMocks';
 const middleware = [thunk];
 const mockStore = configureMockStore(middleware);
 
-describe('Test auth actions', () => {
+describe('Test register action', () => {
   beforeEach(() => {
     moxios.install(request);
   });
@@ -102,6 +104,44 @@ describe('Test logout actions', () => {
     const expectedActions = ['LOGOUT'];
     const store = mockStore();
     return store.dispatch(logout(loginDataMocks)).then(() => {
+      const dispatchedActions = store.getActions();
+      const actionTypes = dispatchedActions.map(action => action.type);
+      expect(actionTypes).toEqual(expectedActions);
+      done();
+    });
+  });
+});
+
+describe('Test reset password', () => {
+  beforeEach(() => {
+    moxios.install();
+  });
+  afterEach(() => {
+    moxios.uninstall();
+  });
+  /** Test reset password action */
+  it('Test invalid login action', done => {
+    moxios.wait(() => {
+      const req = moxios.requests.mostRecent();
+      req.respondWith(resetPasswordResponse);
+    });
+    const expectedActions = ['RESET_SUCCESS'];
+    const store = mockStore();
+    return store.dispatch(reset('john@gmail.com')).then(() => {
+      const dispatchedActions = store.getActions();
+      const actionTypes = dispatchedActions.map(action => action.type);
+      expect(actionTypes).toEqual(expectedActions);
+      done();
+    });
+  });
+  it('Test invalid reset password', done => {
+    moxios.wait(() => {
+      const req = moxios.requests.mostRecent();
+      req.respondWith(invalidResetPasswordResponse);
+    });
+    const expectedActions = ['ERROR'];
+    const store = mockStore();
+    return store.dispatch(reset('mom@gmail.com')).then(() => {
       const dispatchedActions = store.getActions();
       const actionTypes = dispatchedActions.map(action => action.type);
       expect(actionTypes).toEqual(expectedActions);

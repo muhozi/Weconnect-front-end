@@ -147,8 +147,8 @@ export const businessUpdateResponse = {
 export const businessInvalidUpdateResponse = {
   status: 400,
   response: {
-    "status": "error",
-    "message": "This business doesn't exist or you don't have privileges to it"
+    status: 'error',
+    message: "This business doesn't exist or you don't have privileges to it"
   }
 };
 
@@ -171,5 +171,27 @@ export const businessDeleteInvalidResponse = {
   response: {
     status: 'error',
     message: 'Business not found'
+  }
+};
+
+/**
+ * Reset password response mock
+ */
+export const resetPasswordResponse = {
+  status: 201,
+  response: {
+    status: 'ok',
+    message: 'Check your email to reset password'
+  }
+};
+
+/**
+ * Invalid reset password response mock
+ */
+export const invalidResetPasswordResponse = {
+  status: 400,
+  response: {
+    status: 'error',
+    message: 'Email doesn\'t exist'
   }
 };
