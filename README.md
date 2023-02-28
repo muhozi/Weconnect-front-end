@@ -6,7 +6,7 @@
 
 WeConnect provides a platform that brings businesses and individuals together. This platform creates awareness for businesses and gives the users the ability to write reviews about the businesses they have interacted with.
 
-This is the *Front end* Application of [Weconnect](https://weconnect.muhozi.dev), Backend can be found [here](https://github.com/muhozi/WeConnect-2)
+This is the *Front end* Application of [Weconnect](https://weconnect.muhozi.dev), Backend can be found [here](https://github.com/muhozi/WeConnect-api)
 
 ## Prerequisites
 
