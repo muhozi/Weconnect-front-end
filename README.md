@@ -6,7 +6,7 @@
 
 WeConnect provides a platform that brings businesses and individuals together. This platform creates awareness for businesses and gives the users the ability to write reviews about the businesses they have interacted with.
 
-This is the *Front end* Application of [Weconnect](https://connectship.herokuapp.com/), Backend can be found [here](https://github.com/muhozi/WeConnect-2)
+This is the *Front end* Application of [Weconnect](https://weconnect.muhozi.dev), Backend can be found [here](https://github.com/muhozi/WeConnect-2)
 
 ## Prerequisites
 
@@ -45,7 +45,7 @@ If you want to use your custom backend you can change the endpoint url by creati
 REACT_APP_API_URL='custom_api_url'
 ```
 
-If the api url is not set, the default one will be used, which is `https://allconnect.herokuapp.com/api/v1`
+If the api url is not set, the default one will be used, which is `https://weconnect-api.muhozi.dev/api/v1`
 
 #### Enable redux devtools
 

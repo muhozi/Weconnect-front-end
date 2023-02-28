@@ -1,15 +1,15 @@
 import axios from 'axios';
 import store from './ConfigureStore';
 export const api_url =
-  process.env.REACT_APP_API_URL || 'https://allconnect.herokuapp.com/api/v1';
+  process.env.REACT_APP_API_URL || 'https://weconnect-api.muhozi.dev/api/v1';
 
 export { store };
 export const request = axios.create({
   baseURL: api_url,
   headers: {
     Accept: 'application/json',
-    'Content-Type': 'application/json'
-  }
+    'Content-Type': 'application/json',
+  },
 });
 /** Request instance with an Authorization token */
 export const auth_request = () =>
@@ -18,8 +18,8 @@ export const auth_request = () =>
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      Authorization: store.getState().auth.token
-    }
+      Authorization: store.getState().auth.token,
+    },
   });
 
 /** Remove token from localstorage */
