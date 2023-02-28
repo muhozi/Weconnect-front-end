@@ -5,9 +5,13 @@ on:
   pull_request:
     branches: ["master"]
 jobs:
-  build-api:
+  deploy-app:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 10.6.0
       - name: Install dependencies
         uses: borales/actions-yarn@v4
         with:
