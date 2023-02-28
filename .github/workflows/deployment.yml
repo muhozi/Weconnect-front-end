@@ -34,7 +34,4 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd ${{ secrets.PROJECT_DIR }}
-            export NVM_DIR=~/.nvm
-            source ~/.nvm/nvm.sh
-            git pull origin master
-            sh ./deploy.sh
+            bash ./deploy.sh
