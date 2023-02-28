@@ -1,0 +1,36 @@
+name: weconnect-frontend
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+jobs:
+  build-api:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install dependencies
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: install # will run `yarn install` command
+      - name: Run unit tests
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: test # will run `yarn test` command
+      - name: Build production bundle
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: build # will run `yarn build` command
+      - uses: actions/checkout@v3
+      - name: Deploy 🚀
+        if: success() && github.ref == 'refs/heads/master'
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd ${{ secrets.PROJECT_DIR }}
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
+            git pull origin master
+            sh ./deploy.sh
